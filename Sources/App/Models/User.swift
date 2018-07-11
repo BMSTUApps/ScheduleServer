@@ -16,6 +16,12 @@ final class User: MySQLModel {
     /// The user's middle name.
     var middleName: String
     
+    /// The user's photo
+    /// ...
+    
+    /// A link to user's schedule
+    /// ...
+    
     /// Creates a new user.
     init(id: Int? = nil, firstName: String, lastName: String, middleName: String) {
         self.id = id
@@ -28,8 +34,8 @@ final class User: MySQLModel {
 /// Allows `User` to be used as a migration.
 extension User: Migration { }
 
-/// Allows `Todo` to be encoded to and decoded from HTTP messages.
+/// Allows `User` to be encoded to and decoded from HTTP messages.
 extension User: Content { }
 
-/// Allows `Todo` to be used as a dynamic parameter in route definitions.
+/// Allows `User` to be used as a dynamic parameter in route definitions.
 extension User: Parameter { }
