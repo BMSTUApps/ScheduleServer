@@ -22,6 +22,9 @@
 
 /* Begin PBXBuildFile section */
 		A536180F20F679D6004A5EF5 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A536180E20F679D6004A5EF5 /* Teacher.swift */; };
+		A536181120F690A8004A5EF5 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = A536181020F690A8004A5EF5 /* Lesson.swift */; };
+		A536181320F6930E004A5EF5 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = A536181220F6930E004A5EF5 /* Group.swift */; };
+		A536181520F693BA004A5EF5 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A536181420F693BA004A5EF5 /* Subject.swift */; };
 		OBJ_1066 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* AppTests.swift */; };
 		OBJ_1068 /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Server::App::Product" /* App.framework */; };
 		OBJ_1069 /* Vapor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Vapor::Vapor::Product" /* Vapor.framework */; };
@@ -5091,6 +5094,9 @@
 
 /* Begin PBXFileReference section */
 		A536180E20F679D6004A5EF5 /* Teacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
+		A536181020F690A8004A5EF5 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		A536181220F6930E004A5EF5 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		A536181420F693BA004A5EF5 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		"Console::Command::Product" /* Command.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Command.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Console::Product" /* Console.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Console.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Logging::Product" /* Logging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Logging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6697,6 +6703,9 @@
 			children = (
 				OBJ_12 /* User.swift */,
 				A536180E20F679D6004A5EF5 /* Teacher.swift */,
+				A536181020F690A8004A5EF5 /* Lesson.swift */,
+				A536181220F6930E004A5EF5 /* Group.swift */,
+				A536181420F693BA004A5EF5 /* Subject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -11681,10 +11690,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				A536181320F6930E004A5EF5 /* Group.swift in Sources */,
 				OBJ_931 /* UsersController.swift in Sources */,
 				OBJ_932 /* User.swift in Sources */,
 				OBJ_933 /* app.swift in Sources */,
 				OBJ_934 /* boot.swift in Sources */,
+				A536181120F690A8004A5EF5 /* Lesson.swift in Sources */,
+				A536181520F693BA004A5EF5 /* Subject.swift in Sources */,
 				OBJ_935 /* configure.swift in Sources */,
 				A536180F20F679D6004A5EF5 /* Teacher.swift in Sources */,
 				OBJ_936 /* routes.swift in Sources */,
