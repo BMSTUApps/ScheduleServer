@@ -10,4 +10,7 @@ public func routes(_ router: Router) throws {
 
     let usersController = UsersController()
     router.get("users", use: usersController.index)
+    
+    let scheduleController = ScheduleController()
+    router.get("schedules", use: scheduleController.index)
 }

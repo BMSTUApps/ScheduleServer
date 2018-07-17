@@ -4,7 +4,7 @@ import Vapor
 final class ScheduleController {
     
     /// Returns a list of all 'Schedule'.
-    func index(_ req: Request) throws -> Future<[User]> {
-        return User.query(on: req).all()
+    func index(_ req: Request) throws -> Future<[Schedule]> {
+        return Schedule.query(on: req).all()
     }
 }

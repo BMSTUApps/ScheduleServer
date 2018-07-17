@@ -16,11 +16,8 @@ final class Teacher: MySQLModel {
     /// The teacher's middle name.
     var middleName: String
     
-    /// The teacher's photo
-    /// ...
-    
     /// The department where the teacher works
-    /// ...
+    var department: String
     
     /// The teacher's position
     var position: String?
@@ -28,15 +25,13 @@ final class Teacher: MySQLModel {
     /// The teacher's degree
     var degree: String?
     
-    /// A link to teacher's schedule
-    /// ...
-    
     /// Creates a new teacher.
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String) {
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, department: String) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.middleName = middleName
+        self.department = department
     }
 }
 

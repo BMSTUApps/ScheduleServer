@@ -17,17 +17,18 @@ final class User: MySQLModel {
     var middleName: String
     
     /// The user's photo
-    /// ...
+    var photo: String?
     
     /// A link to user's schedule
-    /// ...
+    var scheduleID: Int
     
     /// Creates a new user.
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String) {
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Int) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.middleName = middleName
+        self.scheduleID = scheduleID
     }
 }
 

@@ -6710,6 +6710,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A57AFB9320FE128C00833C0D /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_15 /* Schedule.swift */,
+				OBJ_17 /* Subject.swift */,
+				OBJ_14 /* Lesson.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		A57AFB9420FE12A600833C0D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_19 /* User.swift */,
+				OBJ_16 /* Student.swift */,
+				OBJ_18 /* Teacher.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		A57AFB9520FE12B600833C0D /* University */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_13 /* Group.swift */,
+			);
+			path = University;
+			sourceTree = "<group>";
+		};
 		OBJ_104 /* SQL */ = {
 			isa = PBXGroup;
 			children = (
@@ -6738,13 +6766,9 @@
 		OBJ_12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_13 /* Group.swift */,
-				OBJ_14 /* Lesson.swift */,
-				OBJ_15 /* Schedule.swift */,
-				OBJ_16 /* Student.swift */,
-				OBJ_17 /* Subject.swift */,
-				OBJ_18 /* Teacher.swift */,
-				OBJ_19 /* User.swift */,
+				A57AFB9520FE12B600833C0D /* University */,
+				A57AFB9320FE128C00833C0D /* Schedule */,
+				A57AFB9420FE12A600833C0D /* User */,
 			);
 			path = Models;
 			sourceTree = "<group>";

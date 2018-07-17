@@ -2,19 +2,23 @@ import FluentMySQL
 import Vapor
 
 /// A lesson.
-final class Lesson: MySQLModel {
+final class Lesson: MySQLModel, Encodable {
+    
+    enum Kind: String {
+        case lecture, seminar, lab, other = ""
+    }
     
     /// The unique identifier for this lesson.
     var id: Int?
     
     /// A link to lesson's subject
-    var subjectId: Int?
+    var subjectID: Int
     
-    /// The lesson's type.
-    //var type: LesssonType
+    /// The lesson's kind.
+    var kind: String
     
     /// A link to lesson's teacher
-    var teacherId: Int?
+    var teacherID: Int
 
     /// The lesson's start time.
     var startTime: String
@@ -24,13 +28,20 @@ final class Lesson: MySQLModel {
 
     /// The lesson's location.
     var location: String
+
+    /// A link to lesson's schedule
+    var scheduleID: Int
     
     /// Creates a new lesson.
-    init(id: Int? = nil, startTime: String, endTime: String, location: String) {
+    init(id: Int? = nil, subjectID: Int, kind: Kind, teacherID: Int, startTime: String, endTime: String, location: String, scheduleID: Int) {
         self.id = id
+        self.subjectID = subjectID
+        self.kind = kind.rawValue
+        self.teacherID = teacherID
         self.startTime = startTime
         self.endTime = endTime
         self.location = location
+        self.scheduleID = scheduleID
     }
 }
 
