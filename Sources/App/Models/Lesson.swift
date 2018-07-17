@@ -8,14 +8,14 @@ final class Lesson: MySQLModel {
     var id: Int?
     
     /// A link to lesson's subject
-    /// ...
+    var subjectId: Int?
     
     /// The lesson's type.
     //var type: LesssonType
     
     /// A link to lesson's teacher
-    /// ...
-    
+    var teacherId: Int?
+
     /// The lesson's start time.
     var startTime: String
 

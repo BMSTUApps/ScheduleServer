@@ -14,93 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Console::Command"
-               BuildableName = "Command.framework"
-               BlueprintName = "Command"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Routing::Routing"
-               BuildableName = "Routing.framework"
-               BlueprintName = "Routing"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FluentMySQL::FluentMySQL"
-               BuildableName = "FluentMySQL.framework"
-               BlueprintName = "FluentMySQL"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "swift-nio::CNIOSHA1"
                BuildableName = "CNIOSHA1.framework"
                BlueprintName = "CNIOSHA1"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::NIOTLS"
-               BuildableName = "NIOTLS.framework"
-               BlueprintName = "NIOTLS"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Fluent::Fluent"
-               BuildableName = "Fluent.framework"
-               BlueprintName = "Fluent"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::NIOConcurrencyHelpers"
-               BuildableName = "NIOConcurrencyHelpers.framework"
-               BlueprintName = "NIOConcurrencyHelpers"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -126,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio-ssl::CNIOOpenSSL"
-               BuildableName = "CNIOOpenSSL.framework"
-               BlueprintName = "CNIOOpenSSL"
+               BlueprintIdentifier = "Core::Bits"
+               BuildableName = "Bits.framework"
+               BlueprintName = "Bits"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -140,9 +56,107 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DatabaseKit::DatabaseKit"
-               BuildableName = "DatabaseKit.framework"
-               BlueprintName = "DatabaseKit"
+               BlueprintIdentifier = "swift-nio::CNIOLinux"
+               BuildableName = "CNIOLinux.framework"
+               BlueprintName = "CNIOLinux"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Multipart::Multipart"
+               BuildableName = "Multipart.framework"
+               BlueprintName = "Multipart"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Service::Service"
+               BuildableName = "Service.framework"
+               BlueprintName = "Service"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Crypto::libbcrypt"
+               BuildableName = "libbcrypt.framework"
+               BlueprintName = "libbcrypt"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TemplateKit::TemplateKit"
+               BuildableName = "TemplateKit.framework"
+               BlueprintName = "TemplateKit"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "URLEncodedForm::URLEncodedForm"
+               BuildableName = "URLEncodedForm.framework"
+               BlueprintName = "URLEncodedForm"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "swift-nio::CNIOAtomics"
+               BuildableName = "CNIOAtomics.framework"
+               BlueprintName = "CNIOAtomics"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Crypto::Random"
+               BuildableName = "Random.framework"
+               BlueprintName = "Random"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -168,9 +182,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Console::Console"
-               BuildableName = "Console.framework"
-               BlueprintName = "Console"
+               BlueprintIdentifier = "swift-nio::CNIOHTTPParser"
+               BuildableName = "CNIOHTTPParser.framework"
+               BlueprintName = "CNIOHTTPParser"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -182,9 +196,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::NIO"
-               BuildableName = "NIO.framework"
-               BlueprintName = "NIO"
+               BlueprintIdentifier = "swift-nio-ssl::NIOOpenSSL"
+               BuildableName = "NIOOpenSSL.framework"
+               BlueprintName = "NIOOpenSSL"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -196,9 +210,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Fluent::FluentSQL"
-               BuildableName = "FluentSQL.framework"
-               BlueprintName = "FluentSQL"
+               BlueprintIdentifier = "swift-nio::NIOPriorityQueue"
+               BuildableName = "NIOPriorityQueue.framework"
+               BlueprintName = "NIOPriorityQueue"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -210,37 +224,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Server::Run"
-               BuildableName = "Run"
-               BlueprintName = "Run"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "HTTP::HTTP"
-               BuildableName = "HTTP.framework"
-               BlueprintName = "HTTP"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Validation::Validation"
-               BuildableName = "Validation.framework"
-               BlueprintName = "Validation"
+               BlueprintIdentifier = "SQL::SQL"
+               BuildableName = "SQL.framework"
+               BlueprintName = "SQL"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -280,9 +266,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "MySQL::MySQL"
-               BuildableName = "MySQL.framework"
-               BlueprintName = "MySQL"
+               BlueprintIdentifier = "swift-nio::NIOFoundationCompat"
+               BuildableName = "NIOFoundationCompat.framework"
+               BlueprintName = "NIOFoundationCompat"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -294,9 +280,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Crypto::libbcrypt"
-               BuildableName = "libbcrypt.framework"
-               BlueprintName = "libbcrypt"
+               BlueprintIdentifier = "swift-nio::NIO"
+               BuildableName = "NIO.framework"
+               BlueprintName = "NIO"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -308,9 +294,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::CNIOHTTPParser"
-               BuildableName = "CNIOHTTPParser.framework"
-               BlueprintName = "CNIOHTTPParser"
+               BlueprintIdentifier = "Fluent::FluentSQL"
+               BuildableName = "FluentSQL.framework"
+               BlueprintName = "FluentSQL"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -322,9 +308,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SQL::SQL"
-               BuildableName = "SQL.framework"
-               BlueprintName = "SQL"
+               BlueprintIdentifier = "Fluent::Fluent"
+               BuildableName = "Fluent.framework"
+               BlueprintName = "Fluent"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -336,9 +322,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Service::Service"
-               BuildableName = "Service.framework"
-               BlueprintName = "Service"
+               BlueprintIdentifier = "DatabaseKit::DatabaseKit"
+               BuildableName = "DatabaseKit.framework"
+               BlueprintName = "DatabaseKit"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -350,149 +336,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::CNIODarwin"
-               BuildableName = "CNIODarwin.framework"
-               BlueprintName = "CNIODarwin"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Core::Core"
-               BuildableName = "Core.framework"
-               BlueprintName = "Core"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Console::Logging"
-               BuildableName = "Logging.framework"
-               BlueprintName = "Logging"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Core::Async"
-               BuildableName = "Async.framework"
-               BlueprintName = "Async"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::NIOPriorityQueue"
-               BuildableName = "NIOPriorityQueue.framework"
-               BlueprintName = "NIOPriorityQueue"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Multipart::Multipart"
-               BuildableName = "Multipart.framework"
-               BlueprintName = "Multipart"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::CNIOLinux"
-               BuildableName = "CNIOLinux.framework"
-               BlueprintName = "CNIOLinux"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Crypto::Crypto"
-               BuildableName = "Crypto.framework"
-               BlueprintName = "Crypto"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WebSocket::WebSocket"
-               BuildableName = "WebSocket.framework"
-               BlueprintName = "WebSocket"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "TemplateKit::TemplateKit"
-               BuildableName = "TemplateKit.framework"
-               BlueprintName = "TemplateKit"
-               ReferencedContainer = "container:Server.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Core::COperatingSystem"
-               BuildableName = "COperatingSystem.framework"
-               BlueprintName = "COperatingSystem"
+               BlueprintIdentifier = "HTTP::HTTP"
+               BuildableName = "HTTP.framework"
+               BlueprintName = "HTTP"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -518,9 +364,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Core::Bits"
-               BuildableName = "Bits.framework"
-               BlueprintName = "Bits"
+               BlueprintIdentifier = "Console::Command"
+               BuildableName = "Command.framework"
+               BlueprintName = "Command"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -532,9 +378,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio-ssl::NIOOpenSSL"
-               BuildableName = "NIOOpenSSL.framework"
-               BlueprintName = "NIOOpenSSL"
+               BlueprintIdentifier = "Core::COperatingSystem"
+               BuildableName = "COperatingSystem.framework"
+               BlueprintName = "COperatingSystem"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -546,9 +392,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Crypto::Random"
-               BuildableName = "Random.framework"
-               BlueprintName = "Random"
+               BlueprintIdentifier = "swift-nio::NIOTLS"
+               BuildableName = "NIOTLS.framework"
+               BlueprintName = "NIOTLS"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -560,9 +406,121 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::NIOFoundationCompat"
-               BuildableName = "NIOFoundationCompat.framework"
-               BlueprintName = "NIOFoundationCompat"
+               BlueprintIdentifier = "WebSocket::WebSocket"
+               BuildableName = "WebSocket.framework"
+               BlueprintName = "WebSocket"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Validation::Validation"
+               BuildableName = "Validation.framework"
+               BlueprintName = "Validation"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Crypto::Crypto"
+               BuildableName = "Crypto.framework"
+               BlueprintName = "Crypto"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "swift-nio-ssl::CNIOOpenSSL"
+               BuildableName = "CNIOOpenSSL.framework"
+               BlueprintName = "CNIOOpenSSL"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Core::Core"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "MySQL::MySQL"
+               BuildableName = "MySQL.framework"
+               BlueprintName = "MySQL"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FluentMySQL::FluentMySQL"
+               BuildableName = "FluentMySQL.framework"
+               BlueprintName = "FluentMySQL"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Core::Async"
+               BuildableName = "Async.framework"
+               BlueprintName = "Async"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "swift-nio::CNIODarwin"
+               BuildableName = "CNIODarwin.framework"
+               BlueprintName = "CNIODarwin"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -588,9 +546,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "URLEncodedForm::URLEncodedForm"
-               BuildableName = "URLEncodedForm.framework"
-               BlueprintName = "URLEncodedForm"
+               BlueprintIdentifier = "Server::Run"
+               BuildableName = "Run"
+               BlueprintName = "Run"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -602,9 +560,51 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "swift-nio::CNIOAtomics"
-               BuildableName = "CNIOAtomics.framework"
-               BlueprintName = "CNIOAtomics"
+               BlueprintIdentifier = "Routing::Routing"
+               BuildableName = "Routing.framework"
+               BlueprintName = "Routing"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Console::Logging"
+               BuildableName = "Logging.framework"
+               BlueprintName = "Logging"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Console::Console"
+               BuildableName = "Console.framework"
+               BlueprintName = "Console"
+               ReferencedContainer = "container:Server.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "swift-nio::NIOConcurrencyHelpers"
+               BuildableName = "NIOConcurrencyHelpers.framework"
+               BlueprintName = "NIOConcurrencyHelpers"
                ReferencedContainer = "container:Server.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -643,9 +643,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Console::Command"
-            BuildableName = "Command.framework"
-            BlueprintName = "Command"
+            BlueprintIdentifier = "swift-nio::CNIOSHA1"
+            BuildableName = "CNIOSHA1.framework"
+            BlueprintName = "CNIOSHA1"
             ReferencedContainer = "container:Server.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
