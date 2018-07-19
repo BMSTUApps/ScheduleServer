@@ -2,7 +2,7 @@ import FluentMySQL
 import Vapor
 
 /// A lesson.
-final class Lesson: MySQLModel, Encodable {
+final class Lesson: MySQLModel {
     
     enum Kind: String {
         case lecture, seminar, lab, other = ""
