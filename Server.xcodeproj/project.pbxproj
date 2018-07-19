@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		A57AFB972100D84100833C0D /* TeachersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57AFB962100D84000833C0D /* TeachersController.swift */; };
+		A57AFB992100D8A600833C0D /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57AFB982100D8A600833C0D /* AuthController.swift */; };
 		OBJ_1083 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* AppTests.swift */; };
 		OBJ_1085 /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Server::App::Product" /* App.framework */; };
 		OBJ_1086 /* Vapor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Vapor::Vapor::Product" /* Vapor.framework */; };
@@ -5099,6 +5101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A57AFB962100D84000833C0D /* TeachersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachersController.swift; sourceTree = "<group>"; };
+		A57AFB982100D8A600833C0D /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		"Console::Command::Product" /* Command.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Command.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Console::Product" /* Console.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Console.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Logging::Product" /* Logging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Logging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -8986,6 +8990,8 @@
 			children = (
 				OBJ_10 /* ScheduleController.swift */,
 				OBJ_11 /* UsersController.swift */,
+				A57AFB962100D84000833C0D /* TeachersController.swift */,
+				A57AFB982100D8A600833C0D /* AuthController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -11741,6 +11747,8 @@
 				OBJ_944 /* Lesson.swift in Sources */,
 				OBJ_945 /* Schedule.swift in Sources */,
 				OBJ_946 /* Student.swift in Sources */,
+				A57AFB972100D84100833C0D /* TeachersController.swift in Sources */,
+				A57AFB992100D8A600833C0D /* AuthController.swift in Sources */,
 				OBJ_947 /* Subject.swift in Sources */,
 				OBJ_948 /* Teacher.swift in Sources */,
 				OBJ_949 /* User.swift in Sources */,
