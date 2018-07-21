@@ -3,7 +3,6 @@ import Vapor
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     
-    // Basic "Hello, world!" example
     router.get("hello") { req in
         return "Hello, world!"
     }
@@ -12,5 +11,6 @@ public func routes(_ router: Router) throws {
     router.get("users", use: usersController.index)
     
     let scheduleController = ScheduleController()
-    router.get("schedules", use: scheduleController.index)
+    router.get("schedule", use: scheduleController.index)
+    router.post("schedule/create", use: scheduleController.createSchedule)
 }

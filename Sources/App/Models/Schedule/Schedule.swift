@@ -11,6 +11,11 @@ final class Schedule: MySQLModel {
     var lessons: Children<Schedule, Lesson> {
         return children(\.scheduleID)
     }
+    
+    /// Creates a new schedule.
+    init(id: Int? = nil) {
+        self.id = id
+    }
 }
 
 /// Allows `Schedule` to be used as a migration.
