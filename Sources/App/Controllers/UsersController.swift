@@ -8,7 +8,7 @@ final class UsersController {
         return User.query(on: req).all()
     }
     
-    // TODO: Get user for id
-    // TODO: Update user for id
-    // TODO: Upload photo for id
+    // TODO: Get user for id.
+    // TODO: Update user for id.
+    // TODO: Upload photo for id.
 }

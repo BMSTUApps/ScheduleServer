@@ -11,7 +11,7 @@ final class TeachersController: RouteCollection {
         teachersRoute.get("teacher", use: getTeacher)
     }
     
-    /// Returns teachers for department
+    /// Returns teachers for department.
     func getTeachers(_ req: Request) throws -> Future<[Teacher]> {
         
         guard let searchDepartment = req.query[String.self, at: "department"] else {
@@ -21,7 +21,7 @@ final class TeachersController: RouteCollection {
         return Teacher.query(on: req).filter(\.department == searchDepartment).all()
     }
     
-    /// Returns teacher by id
+    /// Returns teacher by id.
     func getTeacher(_ req: Request) throws -> Future<Teacher> {
         
         guard let teacherID = Int(req.query[String.self, at: "id"] ?? "Empty") else {

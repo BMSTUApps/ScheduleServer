@@ -8,7 +8,7 @@ final class ScheduleController {
         return Schedule.query(on: req).all()
     }
     
-    // TODO: Get schedule for user
+    // TODO: Get schedule for user.
     
     /// Creates schedule for user.
     func createSchedule(_ req: Request) throws -> Future<Schedule> {
