@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Auth",
+        "repositoryURL": "https://github.com/vapor/auth.git",
+        "state": {
+          "branch": null,
+          "revision": "8c783272bbef7490781e0879ae5e9b5ceced0ec0",
+          "version": "2.0.0-rc.5"
+        }
+      },
+      {
         "package": "Console",
         "repositoryURL": "https://github.com/vapor/console.git",
         "state": {
@@ -51,8 +60,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-mysql.git",
         "state": {
           "branch": null,
-          "revision": "56789b520e625e7b26074f9abdac72bdce95f1f4",
-          "version": "3.0.0-rc.4.0.3"
+          "revision": "9f129ebff10a7d0331b8be0ac49b555a85e2e261",
+          "version": "3.0.0"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/vapor/mysql.git",
         "state": {
           "branch": null,
-          "revision": "592c52a9c125f4e0308c3c7a1dd7f476ecce2896",
-          "version": "3.0.0-rc.4.4"
+          "revision": "8717e4a6389ff1ff56801f4e6411309105945c62",
+          "version": "3.0.0"
         }
       },
       {
