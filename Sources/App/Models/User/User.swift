@@ -20,10 +20,10 @@ final class User: MySQLModel {
     var photo: String?
     
     /// A link to user's schedule
-    var scheduleID: Int
+    var scheduleID: Schedule.ID
     
     /// Creates a new user.
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Int) {
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Schedule.ID) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName

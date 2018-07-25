@@ -14,13 +14,14 @@ final class Group: MySQLModel {
     var department: String
     
     /// A link to group's schedule
-    /// ...
+    var scheduleID: Schedule.ID
     
     /// Creates a new group.
-    init(id: Int? = nil, number: String, department: String) {
+    init(id: Int? = nil, number: String, department: String, scheduleID: Schedule.ID) {
         self.id = id
         self.number = number
         self.department = department
+        self.scheduleID = scheduleID
     }
 }
 

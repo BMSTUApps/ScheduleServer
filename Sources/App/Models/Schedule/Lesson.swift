@@ -12,13 +12,13 @@ final class Lesson: MySQLModel {
     var id: Int?
     
     /// A link to lesson's subject
-    var subjectID: Int
+    var subjectID: Subject.ID
     
     /// The lesson's kind.
     var kind: String
     
     /// A link to lesson's teacher
-    var teacherID: Int
+    var teacherID: Teacher.ID
 
     /// The lesson's start time.
     var startTime: String
@@ -30,10 +30,10 @@ final class Lesson: MySQLModel {
     var location: String
 
     /// A link to lesson's schedule
-    var scheduleID: Int
+    var scheduleID: Schedule.ID
     
     /// Creates a new lesson.
-    init(id: Int? = nil, subjectID: Int, kind: Kind, teacherID: Int, startTime: String, endTime: String, location: String, scheduleID: Int) {
+    init(id: Int? = nil, subjectID: Subject.ID, kind: Kind, teacherID: Teacher.ID, startTime: String, endTime: String, location: String, scheduleID: Schedule.ID) {
         self.id = id
         self.subjectID = subjectID
         self.kind = kind.rawValue

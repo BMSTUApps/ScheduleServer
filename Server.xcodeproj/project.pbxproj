@@ -8131,7 +8131,7 @@
 			path = Routing;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -8141,7 +8141,6 @@
 				OBJ_35 /* Dependencies */,
 				OBJ_925 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_501 /* Utilities */ = {
@@ -11112,7 +11111,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_925 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
