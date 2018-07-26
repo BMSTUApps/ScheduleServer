@@ -4,15 +4,12 @@ import Vapor
 /// A schedule.
 final class Schedule: MySQLModel {
     
-    /// The unique identifier for this schedule.
     var id: Int?
     
-    /// Schedule's lessons
     var lessons: Children<Schedule, Lesson> {
         return children(\.scheduleID)
     }
     
-    /// Creates a new schedule.
     init(id: Int? = nil) {
         self.id = id
     }

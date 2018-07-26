@@ -4,13 +4,9 @@ import Vapor
 /// A subject.
 final class Subject: MySQLModel {
     
-    /// The unique identifier for this subject.
     var id: Int?
-    
-    /// The subject's name.
     var name: String
     
-    /// Creates a new subject.
     init(id: Int? = nil, name: String) {
         self.id = id
         self.name = name

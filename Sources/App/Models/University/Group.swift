@@ -4,19 +4,11 @@ import Vapor
 /// A student's group.
 final class Group: MySQLModel {
     
-    /// The unique identifier for this group.
     var id: Int?
-    
-    /// The group's number.
     var number: String
-    
-    /// The group's department.
     var department: String
-    
-    /// A link to group's schedule
     var scheduleID: Schedule.ID
     
-    /// Creates a new group.
     init(id: Int? = nil, number: String, department: String, scheduleID: Schedule.ID) {
         self.id = id
         self.number = number

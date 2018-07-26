@@ -8,31 +8,17 @@ final class Lesson: MySQLModel {
         case lecture, seminar, lab, other = ""
     }
     
-    /// The unique identifier for this lesson.
     var id: Int?
     
-    /// A link to lesson's subject
-    var subjectID: Subject.ID
-    
-    /// The lesson's kind.
     var kind: String
-    
-    /// A link to lesson's teacher
-    var teacherID: Teacher.ID
-
-    /// The lesson's start time.
     var startTime: String
-
-    /// The lesson's end time.
     var endTime: String
-
-    /// The lesson's location.
     var location: String
 
-    /// A link to lesson's schedule
+    var subjectID: Subject.ID
+    var teacherID: Teacher.ID
     var scheduleID: Schedule.ID
     
-    /// Creates a new lesson.
     init(id: Int? = nil, subjectID: Subject.ID, kind: Kind, teacherID: Teacher.ID, startTime: String, endTime: String, location: String, scheduleID: Schedule.ID) {
         self.id = id
         self.subjectID = subjectID

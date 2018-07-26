@@ -4,12 +4,24 @@ import Vapor
 /// A student.
 final class Student: MySQLModel {
 
-    /// The unique identifier for this student.
     var id: Int?
+    
+    var firstName: String
+    var lastName: String
+    var middleName: String
+    
+    var photo: String?
 
-    /// Creates a new student.
-    init(id: Int? = nil) {
+    var scheduleID: Schedule.ID
+    
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Schedule.ID) {
         self.id = id
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.middleName = middleName
+        
+        self.scheduleID = scheduleID
     }
 }
 

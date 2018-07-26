@@ -1300,14 +1300,13 @@
 		OBJ_976 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* AuthController.swift */; };
 		OBJ_977 /* ScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ScheduleController.swift */; };
 		OBJ_978 /* TeachersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* TeachersController.swift */; };
-		OBJ_979 /* UsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* UsersController.swift */; };
+		OBJ_979 /* StudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* StudentController.swift */; };
 		OBJ_980 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Lesson.swift */; };
 		OBJ_981 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Schedule.swift */; };
 		OBJ_982 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Subject.swift */; };
 		OBJ_983 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Group.swift */; };
 		OBJ_984 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Student.swift */; };
 		OBJ_985 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Teacher.swift */; };
-		OBJ_986 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* User.swift */; };
 		OBJ_987 /* app.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* app.swift */; };
 		OBJ_988 /* boot.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* boot.swift */; };
 		OBJ_989 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* configure.swift */; };
@@ -5490,7 +5489,7 @@
 		OBJ_127 /* MySQLDataFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLDataFormat.swift; sourceTree = "<group>"; };
 		OBJ_128 /* MySQLEOFPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLEOFPacket.swift; sourceTree = "<group>"; };
 		OBJ_129 /* MySQLErrorPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLErrorPacket.swift; sourceTree = "<group>"; };
-		OBJ_13 /* UsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersController.swift; sourceTree = "<group>"; };
+		OBJ_13 /* StudentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentController.swift; sourceTree = "<group>"; };
 		OBJ_130 /* MySQLFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLFlags.swift; sourceTree = "<group>"; };
 		OBJ_131 /* MySQLNullBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLNullBitmap.swift; sourceTree = "<group>"; };
 		OBJ_132 /* MySQLPacket+HandshakeResponse41.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MySQLPacket+HandshakeResponse41.swift"; sourceTree = "<group>"; };
@@ -5587,7 +5586,6 @@
 		OBJ_234 /* SQL+SchemaSupporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQL+SchemaSupporting.swift"; sourceTree = "<group>"; };
 		OBJ_235 /* SchemaBuilder+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SchemaBuilder+Field.swift"; sourceTree = "<group>"; };
 		OBJ_237 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/bestK1ng/Code/Web/BMSTUSchedule (Server)/.build/checkouts/fluent.git-6251908308727715749/Package.swift"; sourceTree = "<group>"; };
-		OBJ_24 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		OBJ_240 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
 		OBJ_241 /* SQLAlterTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLAlterTable.swift; sourceTree = "<group>"; };
 		OBJ_242 /* SQLAlterTableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLAlterTableBuilder.swift; sourceTree = "<group>"; };
@@ -7386,7 +7384,6 @@
 			children = (
 				OBJ_22 /* Student.swift */,
 				OBJ_23 /* Teacher.swift */,
-				OBJ_24 /* User.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -9364,7 +9361,7 @@
 				OBJ_10 /* AuthController.swift */,
 				OBJ_11 /* ScheduleController.swift */,
 				OBJ_12 /* TeachersController.swift */,
-				OBJ_13 /* UsersController.swift */,
+				OBJ_13 /* StudentController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -12347,14 +12344,13 @@
 				OBJ_976 /* AuthController.swift in Sources */,
 				OBJ_977 /* ScheduleController.swift in Sources */,
 				OBJ_978 /* TeachersController.swift in Sources */,
-				OBJ_979 /* UsersController.swift in Sources */,
+				OBJ_979 /* StudentController.swift in Sources */,
 				OBJ_980 /* Lesson.swift in Sources */,
 				OBJ_981 /* Schedule.swift in Sources */,
 				OBJ_982 /* Subject.swift in Sources */,
 				OBJ_983 /* Group.swift in Sources */,
 				OBJ_984 /* Student.swift in Sources */,
 				OBJ_985 /* Teacher.swift in Sources */,
-				OBJ_986 /* User.swift in Sources */,
 				OBJ_987 /* app.swift in Sources */,
 				OBJ_988 /* boot.swift in Sources */,
 				OBJ_989 /* configure.swift in Sources */,
