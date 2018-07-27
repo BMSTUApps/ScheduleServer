@@ -25,6 +25,19 @@ final class Student: MySQLModel {
     }
 }
 
+/// Define coding keys for `Student`.
+extension Student {
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case middleName = "middle_name"
+        case photo
+        case scheduleID = "schedule_id"
+    }
+}
+
 /// Allows `Student` to be used as a migration.
 extension Student: Migration { }
 

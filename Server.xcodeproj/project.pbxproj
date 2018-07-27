@@ -1301,7 +1301,7 @@
 		OBJ_977 /* ScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ScheduleController.swift */; };
 		OBJ_978 /* TeachersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* TeachersController.swift */; };
 		OBJ_979 /* StudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* StudentController.swift */; };
-		OBJ_980 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Lesson.swift */; };
+		OBJ_980 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* Event.swift */; };
 		OBJ_981 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Schedule.swift */; };
 		OBJ_982 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Subject.swift */; };
 		OBJ_983 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Group.swift */; };
@@ -5518,7 +5518,7 @@
 		OBJ_156 /* MySQLUpsert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLUpsert.swift; sourceTree = "<group>"; };
 		OBJ_158 /* ByteBuffer+MySQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ByteBuffer+MySQL.swift"; sourceTree = "<group>"; };
 		OBJ_159 /* Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
-		OBJ_16 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		OBJ_16 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		OBJ_160 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
 		OBJ_161 /* MySQLError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySQLError.swift; sourceTree = "<group>"; };
 		OBJ_162 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/bestK1ng/Code/Web/BMSTUSchedule (Server)/.build/checkouts/mysql.git-1890032512239690518/Package.swift"; sourceTree = "<group>"; };
@@ -7218,7 +7218,7 @@
 		OBJ_15 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_16 /* Lesson.swift */,
+				OBJ_16 /* Event.swift */,
 				OBJ_17 /* Schedule.swift */,
 				OBJ_18 /* Subject.swift */,
 			);
@@ -12345,7 +12345,7 @@
 				OBJ_977 /* ScheduleController.swift in Sources */,
 				OBJ_978 /* TeachersController.swift in Sources */,
 				OBJ_979 /* StudentController.swift in Sources */,
-				OBJ_980 /* Lesson.swift in Sources */,
+				OBJ_980 /* Event.swift in Sources */,
 				OBJ_981 /* Schedule.swift in Sources */,
 				OBJ_982 /* Subject.swift in Sources */,
 				OBJ_983 /* Group.swift in Sources */,

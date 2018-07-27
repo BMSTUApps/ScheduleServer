@@ -17,6 +17,17 @@ final class Group: MySQLModel {
     }
 }
 
+/// Define coding keys for `Group`.
+extension Group {
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case number
+        case department
+        case scheduleID = "schedule_id"
+    }
+}
+
 /// Allows `Group` to be used as a migration.
 extension Group: Migration { }
 

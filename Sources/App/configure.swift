@@ -26,7 +26,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Group.self, database: .mysql)
     migrations.add(model: Schedule.self, database: .mysql)
     migrations.add(model: Subject.self, database: .mysql)
-    migrations.add(model: Lesson.self, database: .mysql)
+    migrations.add(model: Event.self, database: .mysql)
     migrations.add(model: Student.self, database: .mysql)
     migrations.add(model: Teacher.self, database: .mysql)
     services.register(migrations)

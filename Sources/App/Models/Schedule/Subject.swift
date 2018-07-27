@@ -13,6 +13,15 @@ final class Subject: MySQLModel {
     }
 }
 
+/// Define coding keys for `Subject`.
+extension Subject {
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+    }
+}
+
 /// Allows `Subject` to be used as a migration.
 extension Subject: Migration { }
 

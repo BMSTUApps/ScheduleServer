@@ -14,9 +14,7 @@ final class Teacher: MySQLModel {
     var position: String?
     var degree: String?
     
-    var scheduleID: Schedule.ID
-    
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, department: String, position: String, degree: String, scheduleID: Schedule.ID) {
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, department: String, position: String, degree: String) {
         self.id = id
         
         self.firstName = firstName
@@ -26,8 +24,20 @@ final class Teacher: MySQLModel {
         self.department = department
         self.position = position
         self.degree = degree
-        
-        self.scheduleID = scheduleID
+    }
+}
+
+/// Define coding keys for `Teacher`.
+extension Teacher {
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case middleName = "middle_name"
+        case department
+        case position
+        case degree
     }
 }
 

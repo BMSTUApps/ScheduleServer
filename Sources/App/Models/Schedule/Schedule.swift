@@ -5,13 +5,28 @@ import Vapor
 final class Schedule: MySQLModel {
     
     var id: Int?
+    var isTemplate: Bool
     
-    var lessons: Children<Schedule, Lesson> {
+    init(id: Int? = nil, isTemplate: Bool) {
+        self.id = id
+        self.isTemplate = isTemplate
+    }
+}
+
+/// Define computed properties for `Schedule`.
+extension Schedule {
+    
+    var lessons: Children<Schedule, Event> {
         return children(\.scheduleID)
     }
+}
+
+/// Define coding keys for `Schedule`.
+extension Schedule {
     
-    init(id: Int? = nil) {
-        self.id = id
+    enum CodingKeys: String, CodingKey {
+        case id
+        case isTemplate = "is_template"
     }
 }
 
