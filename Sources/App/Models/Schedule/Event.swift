@@ -4,13 +4,16 @@ import Vapor
 /// An event.
 final class Event: MySQLModel {
     
-    enum Kind: String {
-        case lecture, seminar, lab, other = ""
+    enum Kind: String, Codable {
+        case lecture
+        case seminar
+        case lab
+        case other = ""
     }
     
     var id: Int?
     
-    var kind: String
+    var kind: Kind
     var location: String
 
     var date: Date?
@@ -26,7 +29,7 @@ final class Event: MySQLModel {
     init(id: Int? = nil, kind: Kind, location: String, date: Date? = nil, repeatIn: String, startTime: String, endTime: String, subjectID: Subject.ID, teacherID: Teacher.ID? = nil, scheduleID: Schedule.ID) {
         self.id = id
         
-        self.kind = kind.rawValue
+        self.kind = kind
         self.location = location
         
         self.date = date
