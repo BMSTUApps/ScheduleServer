@@ -25,6 +25,12 @@ final class Student: MySQLModel {
     }
 }
 
+extension Student {
+    
+    var schedule: Parent<Student, Schedule> {
+        return parent(\.scheduleID)
+    }}
+
 /// Define coding keys for `Student`.
 extension Student {
     

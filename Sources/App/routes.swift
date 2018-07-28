@@ -11,8 +11,7 @@ public func routes(_ router: Router) throws {
     router.get("users", use: usersController.index)
     
     let scheduleController = ScheduleController()
-    router.get("schedule", use: scheduleController.index)
-    router.post("schedule/create", use: scheduleController.createSchedule)
+    try router.register(collection: scheduleController)
     
     let teachersController = TeachersController()
     try router.register(collection: teachersController)
