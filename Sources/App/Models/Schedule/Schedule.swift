@@ -16,7 +16,7 @@ final class Schedule: MySQLModel {
 /// Define computed properties for `Schedule`.
 extension Schedule {
     
-    var lessons: Children<Schedule, Event> {
+    var events: Children<Schedule, Event> {
         return children(\.scheduleID)
     }
 }

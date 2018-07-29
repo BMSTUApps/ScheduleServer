@@ -42,6 +42,25 @@ final class Event: MySQLModel {
         self.scheduleID = scheduleID
         self.teacherID = teacherID
     }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try values.decode(Int.self, forKey: .id)
+        
+        kind = try values.decodeIfPresent(Event.Kind.self, forKey: .kind) ?? .other
+        location = try values.decode(String.self, forKey: .location)
+        
+        date = try values.decode(Date.self, forKey: .date)
+        repeatIn = try values.decode(String.self, forKey: .repeatIn)
+        
+        startTime = try values.decode(String.self, forKey: .startTime)
+        endTime = try values.decode(String.self, forKey: .endTime)
+        
+        subjectID = try values.decode(Subject.ID.self, forKey: .subjectID)
+        scheduleID = try values.decode(Schedule.ID.self, forKey: .scheduleID)
+        teacherID = try values.decode(Teacher.ID.self, forKey: .teacherID)
+    }
 }
 
 /// Define computed properties for `Event`.
