@@ -4,8 +4,12 @@ import Vapor
 public func routes(_ router: Router) throws {
     
     // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
+    router.get("status") { req in
+        return
+            """
+            Server is working
+            Status: ✅ (good)
+            """
     }
 
     let usersController = UsersController()
