@@ -14,7 +14,9 @@ final class Teacher: MySQLModel {
     var position: String?
     var degree: String?
     
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, department: String, position: String, degree: String) {
+    var photo: String?
+    
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, department: String, position: String, degree: String, photo: String? = nil) {
         self.id = id
         
         self.firstName = firstName
@@ -24,6 +26,8 @@ final class Teacher: MySQLModel {
         self.department = department
         self.position = position
         self.degree = degree
+        
+        self.photo = photo
     }
 }
 
@@ -38,6 +42,7 @@ extension Teacher {
         case department
         case position
         case degree
+        case photo
     }
 }
 

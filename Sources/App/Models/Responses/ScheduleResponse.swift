@@ -3,40 +3,36 @@ import Vapor
 final class ScheduleResponse: Response {
     
     var id: Int
+    var ownerId: Int
     
-    var offset: Int
-    var count: Int
+    var isTemplate: Bool
     
-    var studentId: Int
-    
-    var days: [DayResponse]
-    
+    var events: [EventResponse]
+
     enum CodingKeys: String, CodingKey {
         case id
-        case offset
-        case count
-        case studentId = "student_id"
-        case days
+        case ownerId = "owner_id"
+        case isTemplate = "is_template"
+        case events
     }
     
-    init(id: Int, offset: Int, count: Int, studentId: Int, days: [DayResponse]) {
+    init(id: Int, ownerId: Int, isTemplate: Bool, events: [EventResponse]) {
         self.id = id
+        self.ownerId = ownerId
         
-        self.offset = offset
-        self.count = count
+        self.isTemplate = isTemplate
         
-        self.studentId = studentId
-        
-        self.days = days
+        self.events = events
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decode(Int.self, forKey: .id)
-        offset = try values.decode(Int.self, forKey: .offset)
-        count = try values.decode(Int.self, forKey: .count)
-        studentId = try values.decode(Int.self, forKey: .studentId)
-        days = try values.decode([DayResponse].self, forKey: .days)
+        ownerId = try values.decode(Int.self, forKey: .ownerId)
+        
+        isTemplate = try values.decode(Bool.self, forKey: .isTemplate)
+        
+        events = try values.decode([EventResponse].self, forKey: .events)
     }
 }

@@ -4,43 +4,40 @@ import Vapor
 /// An event.
 final class Event: MySQLModel {
     
-    enum Kind: String, Codable {
-        case lecture
-        case seminar
-        case lab
-        case other = ""
-    }
-    
     var id: Int?
+
+    var title: String
     
-    var kind: Kind
+    var kind: String
     var location: String
 
-    var date: Date?
-    var repeatIn: String?
+    var date: Date
+    var repeatIn: Int
+    var endDate: Date?
     
     var startTime: String
     var endTime: String
-    
-    var subjectID: Subject.ID
-    var scheduleID: Schedule.ID
+
     var teacherID: Teacher.ID?
-    
-    init(id: Int? = nil, kind: Kind, location: String, date: Date? = nil, repeatIn: String, startTime: String, endTime: String, subjectID: Subject.ID, teacherID: Teacher.ID? = nil, scheduleID: Schedule.ID) {
+    var scheduleID: Schedule.ID
+
+    init(id: Int? = nil, title: String, kind: String, location: String, date: Date, repeatIn: Int = 0, endDate: Date? = nil, startTime: String, endTime: String, teacherID: Teacher.ID? = nil, scheduleID: Schedule.ID) {
         self.id = id
+        
+        self.title = title
         
         self.kind = kind
         self.location = location
         
         self.date = date
         self.repeatIn = repeatIn
+        self.endDate = endDate
         
         self.startTime = startTime
         self.endTime = endTime
         
-        self.subjectID = subjectID
-        self.scheduleID = scheduleID
         self.teacherID = teacherID
+        self.scheduleID = scheduleID
     }
     
     required init(from decoder: Decoder) throws {
@@ -48,18 +45,20 @@ final class Event: MySQLModel {
         
         id = try values.decode(Int.self, forKey: .id)
         
-        kind = try values.decodeIfPresent(Event.Kind.self, forKey: .kind) ?? .other
+        title = try values.decode(String.self, forKey: .title)
+        
+        kind = try values.decodeIfPresent(String.self, forKey: .kind) ?? "other"
         location = try values.decode(String.self, forKey: .location)
         
         date = try values.decode(Date.self, forKey: .date)
-        repeatIn = try values.decode(String.self, forKey: .repeatIn)
+        repeatIn = try values.decode(Int.self, forKey: .repeatIn)
+        endDate = try values.decode(Date.self, forKey: .endDate)
         
         startTime = try values.decode(String.self, forKey: .startTime)
         endTime = try values.decode(String.self, forKey: .endTime)
         
-        subjectID = try values.decode(Subject.ID.self, forKey: .subjectID)
-        scheduleID = try values.decode(Schedule.ID.self, forKey: .scheduleID)
         teacherID = try values.decode(Teacher.ID.self, forKey: .teacherID)
+        scheduleID = try values.decode(Schedule.ID.self, forKey: .scheduleID)
     }
 }
 
@@ -67,7 +66,7 @@ final class Event: MySQLModel {
 extension Event {
     
     var isRepeat: Bool {
-        return (date == nil) && (repeatIn != nil)
+        return repeatIn > 0
     }
 }
 
@@ -76,15 +75,16 @@ extension Event {
     
     enum CodingKeys: String, CodingKey {
         case id
+        case title
         case kind
         case location
         case date
-        case repeatIn = "repeat"
+        case repeatIn = "repeat_in"
+        case endDate = "end_date"
         case startTime = "start_time"
         case endTime = "end_time"
-        case subjectID = "subject_id"
-        case scheduleID = "schedule_id"
         case teacherID = "teacher_id"
+        case scheduleID = "schedule_id"
     }
 }
 

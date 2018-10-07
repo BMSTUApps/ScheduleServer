@@ -2,7 +2,7 @@ import FluentMySQL
 import Vapor
 
 /// A student.
-final class Student: MySQLModel {
+final class User: MySQLModel {
 
     var id: Int?
     
@@ -12,9 +12,9 @@ final class Student: MySQLModel {
     
     var photo: String?
 
-    var scheduleID: Schedule.ID
+    var scheduleID: Schedule.ID?
     
-    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Schedule.ID) {
+    init(id: Int? = nil, firstName: String, lastName: String, middleName: String, scheduleID: Schedule.ID? = nil) {
         self.id = id
         
         self.firstName = firstName
@@ -25,14 +25,14 @@ final class Student: MySQLModel {
     }
 }
 
-extension Student {
+extension User {
     
-    var schedule: Parent<Student, Schedule> {
-        return parent(\.scheduleID)
+    var schedule: Parent<User, Schedule>? {
+        return parent(\.scheduleID) ?? nil
     }}
 
 /// Define coding keys for `Student`.
-extension Student {
+extension User {
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -45,10 +45,10 @@ extension Student {
 }
 
 /// Allows `Student` to be used as a migration.
-extension Student: Migration { }
+extension User: Migration { }
 
 /// Allows `Student` to be encoded to and decoded from HTTP messages.
-extension Student: Content { }
+extension User: Content { }
 
 /// Allows `Student` to be used as a dynamic parameter in route definitions.
-extension Student: Parameter { }
+extension User: Parameter { }
