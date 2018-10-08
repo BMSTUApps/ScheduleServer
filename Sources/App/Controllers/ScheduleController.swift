@@ -15,7 +15,7 @@ final class ScheduleController: RouteCollection {
         return Schedule.query(on: req).all()
     }
     
-    /// Return schedule for student.
+    /// Return schedule for user.
     func getSchedule(_ req: Request) throws -> Future<ScheduleResponse> {
         
         guard let ownerID = Int(req.query[String.self, at: ScheduleResponse.CodingKeys.ownerId.stringValue] ?? "Empty") else {
@@ -31,10 +31,16 @@ final class ScheduleController: RouteCollection {
             let futureResponse = futureSchedule.flatMap(to: ScheduleResponse.self, { schedule in
 
                 // Get events from schedule
-                let repeatEvents = try schedule.events.query(on: req).filter(\.isRepeat == true).all()
+                let repeatEvents = try schedule.events.query(on: req).all()
                 let futureResponse = repeatEvents.map(to: ScheduleResponse.self, { events in
 
-                    return ScheduleResponse(id: schedule.id!, ownerId: user.id!, isTemplate: schedule.isTemplate, events: [])
+                    var responses: [EventResponse] = []
+                    
+                    for event in events {
+                        responses.append(EventResponse(event))
+                    }
+                    
+                    return ScheduleResponse(id: schedule.id!, ownerId: user.id!, isTemplate: schedule.isTemplate, events: responses)
                 })
 
                 return futureResponse

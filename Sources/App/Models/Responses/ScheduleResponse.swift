@@ -17,6 +17,7 @@ final class ScheduleResponse: Response {
     }
     
     init(id: Int, ownerId: Int, isTemplate: Bool, events: [EventResponse]) {
+        
         self.id = id
         self.ownerId = ownerId
         
