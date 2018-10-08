@@ -19,7 +19,7 @@ final class ScheduleController: RouteCollection {
     func getSchedule(_ req: Request) throws -> Future<ScheduleResponse> {
         
         guard let ownerID = Int(req.query[String.self, at: ScheduleResponse.CodingKeys.ownerId.stringValue] ?? "Empty") else {
-                throw Abort(.badRequest, reason: "Missing parameters in request.")
+                throw Abort.missingParameters([ScheduleResponse.CodingKeys.ownerId.stringValue])
         }
         
         // Find user
@@ -40,7 +40,7 @@ final class ScheduleController: RouteCollection {
                         responses.append(EventResponse(event))
                     }
                     
-                    return ScheduleResponse(id: schedule.id!, ownerId: user.id!, isTemplate: schedule.isTemplate, events: responses)
+                    return ScheduleResponse(id: schedule.id ?? -1, ownerId: user.id ?? -1, isTemplate: schedule.isTemplate, events: responses)
                 })
 
                 return futureResponse

@@ -1,7 +1,7 @@
 import Vapor
 
 /// Controls operations on 'User'.
-final class StudentController {
+final class UserController {
 
     /// Returns a list of all 'Student'.
     func index(_ req: Request) throws -> Future<[User]> {

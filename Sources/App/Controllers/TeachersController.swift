@@ -15,7 +15,7 @@ final class TeachersController: RouteCollection {
     func getTeachers(_ req: Request) throws -> Future<[Teacher]> {
         
         guard let searchDepartment = req.query[String.self, at: Teacher.CodingKeys.department.stringValue] else {
-            throw Abort(.badRequest, reason: "Missing teacher department in request.")
+            throw Abort.missingParameters([Teacher.CodingKeys.department.stringValue])
         }
         
         return Teacher.query(on: req).filter(\.department == searchDepartment).all()
@@ -25,7 +25,7 @@ final class TeachersController: RouteCollection {
     func getTeacher(_ req: Request) throws -> Future<Teacher> {
         
         guard let teacherID = Int(req.query[String.self, at: Teacher.CodingKeys.id.stringValue] ?? "") else {
-            throw Abort(.badRequest, reason: "Missing teacher id in request.")
+            throw Abort.missingParameters([Teacher.CodingKeys.id.stringValue])
         }
         
         return Teacher.find(teacherID, on: req).unwrap(or: Abort(.notFound, reason: "Teacher not found."))

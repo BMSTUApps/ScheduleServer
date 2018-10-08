@@ -7,7 +7,7 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
 
-    let usersController = StudentController()
+    let usersController = UserController()
     router.get("users", use: usersController.index)
     
     let scheduleController = ScheduleController()
