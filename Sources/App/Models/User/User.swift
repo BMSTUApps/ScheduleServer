@@ -14,6 +14,10 @@ final class User: MySQLModel {
     var lastName: String
     var middleName: String
     
+    var fullName: String {
+        return "\(lastName) \(firstName) \(middleName)"
+    }
+    
     var photo: String?
 
     var scheduleID: Schedule.ID?
