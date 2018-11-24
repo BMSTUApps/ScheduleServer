@@ -33,9 +33,9 @@ struct UserToken: MySQLModel {
     
     /// Creates a new `UserToken` for a given user.
     static func create(userID: User.ID) throws -> UserToken {
-        // generate a random 128-bit, base64-encoded string.
+        // Generate a random 128-bit, base64-encoded string.
         let string = try CryptoRandom().generateData(count: 16).base64EncodedString()
-        // init a new `UserToken` from that string.
+        // Init a new `UserToken` from that string.
         return .init(string: string, userID: userID)
     }
 }
