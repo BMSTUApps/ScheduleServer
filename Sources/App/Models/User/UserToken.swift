@@ -27,7 +27,7 @@ struct UserToken: MySQLModel {
     init(id: Int? = nil, string: String, userID: User.ID) {
         self.id = id
         self.string = string
-        self.expiresAt = Date.init(timeInterval: 60 * 60 * 5, since: .init())
+        self.expiresAt = Date.init(timeInterval: timeAlive, since: .init())
         self.userID = userID
     }
     

@@ -1,13 +1,40 @@
 import Vapor
-import Crypto
-import FluentMySQL
 
 /// Data required to create a user.
-struct CreateUserRequest: Content {
+final class CreateUserRequest: DeafultRequest {
     
     /// User's email address.
     var email: String
     
     /// User's desired password.
     var password: String
+    
+    /// User's name.
+    var firstName: String
+    var lastName: String
+    var middleName: String?
+    
+    /// User's photo URL.
+    var photo: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case email
+        case password
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case middleName = "middle_name"
+        case photo
+    }
+    
+    init(email: String, password: String, firstName: String, lastName: String, middleName: String?, photo: String?) {
+        self.email = email
+        
+        self.password = password
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.middleName = middleName
+        
+        self.photo = photo
+    }
 }

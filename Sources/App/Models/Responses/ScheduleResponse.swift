@@ -1,6 +1,6 @@
 import Vapor
 
-final class ScheduleResponse: Response {
+final class ScheduleResponse: DefaultResponse {
     
     var id: Int
     var ownerId: Int

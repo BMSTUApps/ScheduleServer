@@ -1,6 +1,6 @@
 import Vapor
 
-final class TeacherShortResponse: Response {
+final class TeacherShortResponse: DefaultResponse {
 
     var id: Int
     

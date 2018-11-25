@@ -10,7 +10,7 @@ final class UserController {
         return User.query(on: req).all()
     }
     
-     func login(_ req: Request) throws -> Future<UserToken> {
+     func login(_ req: Request) throws -> Future<UserTokenResponse> {
         
         // Get user auth'd by basic auth middleware
         let user = try req.requireAuthenticated(User.self)
@@ -19,7 +19,9 @@ final class UserController {
         let token = try UserToken.create(userID: user.requireID())
         
         // Save and return token
-        return token.save(on: req)
+        return token.save(on: req).map({ (token) -> UserTokenResponse in
+            return UserTokenResponse(token)
+        })
     }
     
     /// Creates a new user.
@@ -34,7 +36,7 @@ final class UserController {
             return User(id: nil, email: user.email, passwordHash: hash, firstName: "", lastName: "", middleName: "", scheduleID: nil).save(on: req)
             
             }.map({ user -> UserResponse in
-                return try UserResponse(id: user.requireID(), name: user.fullName, email: user.email)
+                return UserResponse(user)
             })
     }
     
