@@ -1,5 +1,5 @@
 import Vapor
 
-protocol Response: Content {
+protocol DefaultResponse: Content {
 
 }

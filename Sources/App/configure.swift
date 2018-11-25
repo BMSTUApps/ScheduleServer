@@ -1,11 +1,15 @@
 import Vapor
 import FluentMySQL
+import Authentication
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
     /// Register providers first
     try services.register(FluentMySQLProvider())
 
+    /// Register Authentication provider
+    try services.register(AuthenticationProvider())
+    
     /// Register routes to the router
     let router = EngineRouter.default()
     try routes(router)
@@ -18,7 +22,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(middlewares)
 
     /// Register custom MySQL Config
-    let mysqlConfig = MySQLDatabaseConfig(hostname: "localhost", port: 3306, username: "root", password: "root", database: "bmstu")
+    let mysqlConfig = MySQLDatabaseConfig(hostname: "localhost", port: 3306, username: "root", password: "rootroot", database: "bmstu")
     services.register(mysqlConfig)
     
     /// Configure migrations
@@ -27,6 +31,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Schedule.self, database: .mysql)
     migrations.add(model: Event.self, database: .mysql)
     migrations.add(model: User.self, database: .mysql)
+    migrations.add(model: UserToken.self, database: .mysql)
     migrations.add(model: Teacher.self, database: .mysql)
     services.register(migrations)
 }
