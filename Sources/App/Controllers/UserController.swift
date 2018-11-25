@@ -33,11 +33,11 @@ final class UserController {
             let hash = try BCrypt.hash(user.password)
             
             // Save new user
-            return User(id: nil, email: user.email, passwordHash: hash, firstName: "", lastName: "", middleName: "", scheduleID: nil).save(on: req)
+            return User(user, passwordHash: hash).save(on: req)
             
-            }.map({ user -> UserResponse in
-                return UserResponse(user)
-            })
+        }.map({ user -> UserResponse in
+            return UserResponse(user)
+        })
     }
     
     // TODO: Get student for id.

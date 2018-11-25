@@ -14,15 +14,11 @@ final class User: MySQLModel {
     var lastName: String
     var middleName: String
     
-    var fullName: String {
-        return "\(lastName) \(firstName) \(middleName)"
-    }
-    
     var photo: String?
 
     var scheduleID: Schedule.ID?
     
-    init(id: Int? = nil, email: String = "", passwordHash: String = "", firstName: String, lastName: String, middleName: String, scheduleID: Schedule.ID? = nil) {
+    init(id: Int? = nil, email: String = "", passwordHash: String = "", firstName: String, lastName: String, middleName: String?, scheduleID: Schedule.ID? = nil) {
         self.id = id
         
         self.email = email
@@ -30,7 +26,7 @@ final class User: MySQLModel {
         
         self.firstName = firstName
         self.lastName = lastName
-        self.middleName = middleName
+        self.middleName = middleName ?? ""
         
         self.scheduleID = scheduleID
     }
