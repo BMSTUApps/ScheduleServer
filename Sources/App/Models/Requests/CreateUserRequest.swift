@@ -14,6 +14,9 @@ final class CreateUserRequest: DeafultRequest {
     var lastName: String
     var middleName: String?
     
+    /// User's schedule template.
+    var templateScheduleID: Int
+    
     /// User's photo URL.
     var photo: String?
     
@@ -23,10 +26,11 @@ final class CreateUserRequest: DeafultRequest {
         case firstName = "first_name"
         case lastName = "last_name"
         case middleName = "middle_name"
+        case templateScheduleID = "template_schedule_id"
         case photo
     }
     
-    init(email: String, password: String, firstName: String, lastName: String, middleName: String?, photo: String?) {
+    init(email: String, password: String, firstName: String, lastName: String, middleName: String?, photo: String?, templateScheduleID: Int) {
         self.email = email
         
         self.password = password
@@ -34,6 +38,8 @@ final class CreateUserRequest: DeafultRequest {
         self.firstName = firstName
         self.lastName = lastName
         self.middleName = middleName
+        
+        self.templateScheduleID = templateScheduleID
         
         self.photo = photo
     }
