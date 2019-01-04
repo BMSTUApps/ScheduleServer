@@ -1,6 +1,6 @@
 import Vapor
 
-final class EventResponse: DefaultResponse {
+final class EventResponse: BaseResponse {
 
     var id: Int
     

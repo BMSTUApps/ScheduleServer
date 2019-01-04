@@ -1,7 +1,7 @@
 import Vapor
 
 /// Data required to create a user.
-final class CreateUserRequest: DeafultRequest {
+final class CreateUserRequest: BaseRequest {
     
     /// User's email address.
     var email: String

@@ -11,9 +11,14 @@ final class UserController: RouteCollection {
         let simpleAuth = User.basicAuthMiddleware(using: BCryptDigest())
         let authController = userRoute.grouped(simpleAuth)
         
+        // REQUEST: api/user/
+        // FIXME: Remove user's list
         userRoute.get("users", use: index)
-        userRoute.post("signup", use: signup)
         
+        // REQUEST: api/user/sign_up
+        userRoute.post("sign_up", use: signUp)
+        
+        // REQUEST: api/user/login
         authController.post("login", use: login)
     }
     
@@ -37,7 +42,7 @@ final class UserController: RouteCollection {
     }
     
     /// Creates a new user.
-    func signup(_ req: Request) throws -> Future<UserResponse> {
+    func signUp(_ req: Request) throws -> Future<UserResponse> {
         // Decode request content
         return try req.content.decode(CreateUserRequest.self).flatMap { user -> Future<User> in
             

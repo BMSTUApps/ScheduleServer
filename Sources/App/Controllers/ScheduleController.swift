@@ -10,7 +10,11 @@ final class ScheduleController: RouteCollection {
         let token = User.tokenAuthMiddleware()
         let tokenController = scheduleRoute.grouped(token)
         
+        // REQUEST: api/schedule/
         tokenController.get(use: getSchedule)
+        
+        // REQUEST: api/schedule/edit
+        // TODO: api/schedule/edit
     }
     
     /// Returns a list of all schedules.
