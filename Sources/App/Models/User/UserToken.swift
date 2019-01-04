@@ -4,7 +4,7 @@ import Authentication
 import Crypto
 
 // Set token to expire after 48 hours
-let timeAlive: TimeInterval = 60 * 60 * 48
+let timeAlive: TimeInterval = 48 * 60 * 60
 
 struct UserToken: MySQLModel {
     
@@ -37,6 +37,17 @@ struct UserToken: MySQLModel {
         let string = try CryptoRandom().generateData(count: 16).base64EncodedString()
         // Init a new `UserToken` from that string.
         return .init(string: string, userID: userID)
+    }
+}
+
+/// Define coding keys for `UserToken`.
+extension UserToken {
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case string
+        case userID = "user_id"
+        case expiresAt = "expires_at"
     }
 }
 

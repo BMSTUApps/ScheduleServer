@@ -4,21 +4,16 @@ import Crypto
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     
+    // Status
+    
     router.get("status") { req in
         return "All is ok"
     }
 
-    // Use user model to create an authentication middleware
-//    let token = User.tokenAuthMiddleware()
-    
     // User
     
-    let usersController = UserController()
-    router.get("users", use: usersController.index)
-    router.post("signup", use: usersController.signup)
-    
-    let passwordController = router.grouped(User.basicAuthMiddleware(using: BCryptDigest()))
-    passwordController.post("login", use: usersController.login)
+    let userController = UserController()
+    try router.register(collection: userController)
 
     // Schedule
     

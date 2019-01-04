@@ -38,7 +38,7 @@ extension User {
         return parent(\.scheduleID) ?? nil
     }}
 
-/// Define coding keys for `Student`.
+/// Define coding keys for `User`.
 extension User {
     
     enum CodingKeys: String, CodingKey {

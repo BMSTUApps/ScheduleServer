@@ -3,8 +3,20 @@ import Crypto
 import FluentMySQL
 
 /// Controls operations on 'User'.
-final class UserController {
+final class UserController: RouteCollection {
 
+    func boot(router: Router) throws {
+        let userRoute = router.grouped("api", "user")
+        
+        let simpleAuth = User.basicAuthMiddleware(using: BCryptDigest())
+        let authController = userRoute.grouped(simpleAuth)
+        
+        userRoute.get("users", use: index)
+        userRoute.post("signup", use: signup)
+        
+        authController.post("login", use: login)
+    }
+    
     /// Returns a list of all users.
     func index(_ req: Request) throws -> Future<[User]> {
         return User.query(on: req).all()

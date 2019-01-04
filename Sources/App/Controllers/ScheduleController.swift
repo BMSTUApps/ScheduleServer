@@ -5,9 +5,12 @@ import Fluent
 final class ScheduleController: RouteCollection {
     
     func boot(router: Router) throws {
-        let teachersRoute = router.grouped("api", "schedule")
+        let scheduleRoute = router.grouped("api", "schedule")
         
-        teachersRoute.get(use: getSchedule)
+        let token = User.tokenAuthMiddleware()
+        let tokenController = scheduleRoute.grouped(token)
+        
+        scheduleRoute.get(use: getSchedule)
     }
     
     /// Returns a list of all schedules.
