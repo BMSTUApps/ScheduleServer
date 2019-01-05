@@ -3,8 +3,25 @@ import Crypto
 import FluentMySQL
 
 /// Controls operations on 'User'.
-final class UserController {
+final class UserController: RouteCollection {
 
+    func boot(router: Router) throws {
+        let userRoute = router.grouped("api", "user")
+        
+        let simpleAuth = User.basicAuthMiddleware(using: BCryptDigest())
+        let authController = userRoute.grouped(simpleAuth)
+        
+        // REQUEST: api/user/
+        // FIXME: Remove user's list
+        userRoute.get("users", use: index)
+        
+        // REQUEST: api/user/sign_up
+        userRoute.post("sign_up", use: signUp)
+        
+        // REQUEST: api/user/login
+        authController.post("login", use: login)
+    }
+    
     /// Returns a list of all users.
     func index(_ req: Request) throws -> Future<[User]> {
         return User.query(on: req).all()
@@ -25,8 +42,7 @@ final class UserController {
     }
     
     /// Creates a new user.
-    func signup(_ req: Request) throws -> Future<UserResponse> {
-        
+    func signUp(_ req: Request) throws -> Future<UserResponse> {
         // Decode request content
         let request = try req.content.decode(CreateUserRequest.self)
         

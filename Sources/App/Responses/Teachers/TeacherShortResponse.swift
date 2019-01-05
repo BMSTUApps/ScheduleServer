@@ -1,44 +1,47 @@
 import Vapor
 
-final class UserResponse: DefaultResponse {
-    
+final class TeacherShortResponse: BaseResponse {
+
     var id: Int
-    
-    var email: String
     
     var firstName: String
     var lastName: String
     var middleName: String?
     
     var photo: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
-        case email
         case firstName = "first_name"
         case lastName = "last_name"
         case middleName = "middle_name"
         case photo
     }
     
-    init(_ user: User) {
-        self.id = user.id ?? -1
+    init(id: Int, firstName: String, lastName: String, middleName: String? = nil, photo: String? = nil) {
+        self.id = id
         
-        self.email = user.email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.middleName = middleName
         
-        self.firstName = user.firstName
-        self.lastName = user.lastName
-        self.middleName = user.middleName
+        self.photo = photo
+    }
+    
+    init(_ teacher: Teacher) {
+        self.id = teacher.id ?? -1
         
-        self.photo = user.photo
+        self.firstName = teacher.firstName
+        self.lastName = teacher.lastName
+        self.middleName = teacher.middleName
+        
+        self.photo = teacher.photo
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try values.decode(Int.self, forKey: .id)
-        
-        email = try values.decode(String.self, forKey: .email)
         
         firstName = try values.decode(String.self, forKey: .firstName)
         lastName = try values.decode(String.self, forKey: .lastName)

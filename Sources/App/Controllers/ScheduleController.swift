@@ -5,9 +5,16 @@ import Fluent
 final class ScheduleController: RouteCollection {
     
     func boot(router: Router) throws {
-        let teachersRoute = router.grouped("api", "schedule")
+        let scheduleRoute = router.grouped("api", "schedule")
         
-        teachersRoute.get(use: getSchedule)
+        let token = User.tokenAuthMiddleware()
+        let tokenController = scheduleRoute.grouped(token)
+        
+        // REQUEST: api/schedule/
+        tokenController.get(use: getSchedule)
+        
+        // REQUEST: api/schedule/edit
+        // TODO: api/schedule/edit
     }
     
     /// Returns a list of all schedules.
@@ -17,17 +24,20 @@ final class ScheduleController: RouteCollection {
     
     /// Return schedule for user.
     func getSchedule(_ req: Request) throws -> Future<ScheduleResponse> {
-        
-        guard let ownerID = Int(req.query[String.self, at: ScheduleResponse.CodingKeys.ownerId.stringValue] ?? "Empty") else {
-                throw Abort.missingParameters([ScheduleResponse.CodingKeys.ownerId.stringValue])
-        }
+
+        let user = try req.requireAuthenticated(User.self)
+        let ownerID = try user.requireID()
         
         // Find user
         let futureUser = User.find(ownerID, on: req).unwrap(or: Abort(.notFound, reason: "User not found."))
         let futureResponse = futureUser.flatMap(to: ScheduleResponse.self) { user in
+        
+            // Check user's schedule
+            guard let schedule = user.schedule else {
+                throw Abort(.notFound, reason: "Schedule for user \"\(user.email)\" not found.")
+            }
             
-            // Find user's schedule
-            let futureSchedule = user.schedule!.get(on: req)
+            let futureSchedule = schedule.get(on: req)
             let futureResponse = futureSchedule.flatMap(to: ScheduleResponse.self, { schedule in
 
                 // Get events from schedule

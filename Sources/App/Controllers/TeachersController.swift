@@ -7,7 +7,10 @@ final class TeachersController: RouteCollection {
     func boot(router: Router) throws {
         let teachersRoute = router.grouped("api", "teachers")
         
+        // REQUEST: api/teachers/
         teachersRoute.get(use: getTeachers)
+
+        // REQUEST: api/teachers/teacher
         teachersRoute.get("teacher", use: getTeacher)
     }
     

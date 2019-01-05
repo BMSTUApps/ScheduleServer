@@ -1,6 +1,6 @@
 import Vapor
 
-final class UserTokenResponse: DefaultResponse {
+final class UserTokenResponse: BaseResponse {
     
     static let defaultFormat = "yyyy-MM-dd HH:mm:ss"
     
