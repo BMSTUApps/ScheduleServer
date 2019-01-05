@@ -43,6 +43,7 @@ final class UserController: RouteCollection {
     
     /// Creates a new user.
     func signUp(_ req: Request) throws -> Future<UserResponse> {
+        
         // Decode request content
         let request = try req.content.decode(CreateUserRequest.self)
         
@@ -53,22 +54,22 @@ final class UserController: RouteCollection {
         
         // Get template schedule
         let templateSchedule = templateID.flatMap(to: Schedule.self) { (scheduleTemplateID) -> EventLoopFuture<Schedule> in
-            return Schedule.find(scheduleTemplateID, on: req).unwrap(or: Abort(.notFound, reason: "Schedule not found."))
+            return Schedule.find(scheduleTemplateID, on: req).unwrap(or: Abort(.notFound, reason: "Template schedule not found."))
         }
         
         // Create schedule from template
-        templateSchedule.flatMap { (template) -> EventLoopFuture<Schedule> in
+        _ = templateSchedule.flatMap { (template) -> EventLoopFuture<Schedule> in
             
             let schedule = Schedule(id: nil, isTemplate: false)
             let scheduleID = try schedule.requireID()
             
-            try template.events.query(on: req).all().map(to: Int.self, { (events) -> Int in
+            _ = try template.events.query(on: req).all().map(to: Int.self, { (events) -> Int in
                 
                 for event in events {
                     
                     let newEvent = Event(id: nil, title: event.title, kind: event.kind, location: event.location, date: event.date, repeatIn: event.repeatIn, endDate: event.endDate, startTime: event.startTime, endTime: event.endTime, teacherID: event.teacherID, scheduleID: scheduleID)
                     
-                    newEvent.save(on: req)
+                    _ = newEvent.save(on: req)
                 }
                 
                 return 0

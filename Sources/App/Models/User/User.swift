@@ -14,7 +14,7 @@ final class User: MySQLModel {
     var lastName: String
     var middleName: String
     
-    var photo: String?
+    var photo: URL?
 
     var scheduleID: Schedule.ID?
     

@@ -17,9 +17,6 @@ final class CreateUserRequest: BaseRequest {
     /// User's schedule template.
     var templateScheduleID: Int
     
-    /// User's photo URL.
-    var photo: String?
-    
     enum CodingKeys: String, CodingKey {
         case email
         case password
@@ -27,10 +24,9 @@ final class CreateUserRequest: BaseRequest {
         case lastName = "last_name"
         case middleName = "middle_name"
         case templateScheduleID = "template_schedule_id"
-        case photo
     }
     
-    init(email: String, password: String, firstName: String, lastName: String, middleName: String?, photo: String?, templateScheduleID: Int) {
+    init(email: String, password: String, firstName: String, lastName: String, middleName: String?, templateScheduleID: Int) {
         self.email = email
         
         self.password = password
@@ -40,8 +36,6 @@ final class CreateUserRequest: BaseRequest {
         self.middleName = middleName
         
         self.templateScheduleID = templateScheduleID
-        
-        self.photo = photo
     }
 }
 

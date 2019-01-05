@@ -10,7 +10,7 @@ final class UserResponse: BaseResponse {
     var lastName: String
     var middleName: String?
     
-    var photo: String?
+    var photo: URL?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -44,6 +44,6 @@ final class UserResponse: BaseResponse {
         lastName = try values.decode(String.self, forKey: .lastName)
         middleName = try values.decode(String.self, forKey: .middleName)
         
-        photo = try values.decode(String.self, forKey: .photo)
+        photo = try values.decode(URL.self, forKey: .photo)
     }
 }
