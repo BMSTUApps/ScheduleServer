@@ -36,7 +36,8 @@ extension User {
     
     var schedule: Parent<User, Schedule>? {
         return parent(\.scheduleID) ?? nil
-    }}
+    }
+}
 
 /// Define coding keys for `User`.
 extension User {

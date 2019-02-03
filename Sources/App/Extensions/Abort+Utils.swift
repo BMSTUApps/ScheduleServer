@@ -39,4 +39,34 @@ extension Abort {
         
         return Abort(.badRequest, reason: reason, file: file, function: function, line: line, column: column)
     }
+    
+    static func invalidParameters(_ parameters: [String],
+                                  file: String = #file,
+                                  function: String = #function,
+                                  line: UInt = #line,
+                                  column: UInt = #column) -> Abort {
+        
+        var reason = "Invalid "
+        
+        if parameters.count > 1 {
+            reason += "parameters: "
+            
+            for parameter in parameters {
+                reason += "'\(parameter)'"
+                
+                if parameter != parameters.last {
+                    reason += ","
+                }
+            }
+            
+        } else if parameters.count == 1 {
+            reason += "parameter '\(parameters[0])'"
+        } else {
+            reason += "parameters"
+        }
+        
+        reason += " in request."
+        
+        return Abort(.badRequest, reason: reason, file: file, function: function, line: line, column: column)
+    }
 }

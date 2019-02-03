@@ -9,11 +9,22 @@ final class Group: MySQLModel {
     var department: String
     var scheduleID: Schedule.ID
     
+    var identificator: String {
+        return "\(department)-\(number)"
+    }
+    
     init(id: Int? = nil, number: String, department: String, scheduleID: Schedule.ID) {
         self.id = id
         self.number = number
         self.department = department
         self.scheduleID = scheduleID
+    }
+}
+
+extension Group {
+    
+    var schedule: Parent<Group, Schedule>? {
+        return parent(\.scheduleID)
     }
 }
 

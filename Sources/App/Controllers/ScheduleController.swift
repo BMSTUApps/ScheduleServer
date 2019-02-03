@@ -8,10 +8,13 @@ final class ScheduleController: RouteCollection {
         let scheduleRoute = router.grouped("api", "schedule")
         
         let token = User.tokenAuthMiddleware()
-        let tokenController = scheduleRoute.grouped(token)
+        let tokenController = scheduleRoute.grouped(token) 
         
         // REQUEST: api/schedule/
         tokenController.get(use: getSchedule)
+        
+        // REQUEST: api/teachers/template
+        scheduleRoute.get("template", use: getTemplateSchedule)
         
         // REQUEST: api/schedule/edit
         // TODO: api/schedule/edit
@@ -56,6 +59,53 @@ final class ScheduleController: RouteCollection {
                 return futureResponse
             })
 
+            return futureResponse
+        }
+        
+        return futureResponse
+    }
+    
+    /// Return schedule for group.
+    func getTemplateSchedule(_ req: Request) throws -> Future<ScheduleResponse> {
+        
+        let groupParam = "group"
+        guard let searchGroupIdentificator = req.query[String.self, at: groupParam] else {
+            throw Abort.missingParameters([groupParam])
+        }
+        
+        let searchGroupComponents = searchGroupIdentificator.components(separatedBy: "-")
+        guard searchGroupComponents.count == 2, let searchGroupDepartment = searchGroupComponents.first, let searchGroupNumber = searchGroupComponents.last else {
+            throw Abort.invalidParameters([groupParam])
+        }
+        
+        // Find group
+        let futureGroup = Group.query(on: req).filter(\.department == searchGroupDepartment).filter(\.number == searchGroupNumber).first().unwrap(or: Abort(.notFound, reason: "Group not found."))
+        let futureResponse = futureGroup.flatMap(to: ScheduleResponse.self) { group in
+            
+            // Check group's schedule
+            guard let schedule = group.schedule else {
+                throw Abort(.notFound, reason: "Schedule for group \"\(group.number)\" not found.")
+            }
+            
+            let futureSchedule = schedule.get(on: req)
+            let futureResponse = futureSchedule.flatMap(to: ScheduleResponse.self, { schedule in
+                
+                // Get events from schedule
+                let repeatEvents = try schedule.events.query(on: req).all()
+                let futureResponse = repeatEvents.map(to: ScheduleResponse.self, { events in
+                    
+                    var responses: [EventResponse] = []
+                    
+                    for event in events {
+                        responses.append(EventResponse(event))
+                    }
+                    
+                    return ScheduleResponse(id: schedule.id ?? -1, ownerId: group.id ?? -1, isTemplate: schedule.isTemplate, events: responses)
+                })
+                
+                return futureResponse
+            })
+            
             return futureResponse
         }
         
