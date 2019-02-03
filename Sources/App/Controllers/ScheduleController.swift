@@ -18,6 +18,9 @@ final class ScheduleController: RouteCollection {
         
         // REQUEST: api/schedule/edit
         // TODO: api/schedule/edit
+        
+        // REQUEST: api/teachers/parse
+        scheduleRoute.get("parse", use: testParse)
     }
     
     /// Returns a list of all schedules.
@@ -126,5 +129,14 @@ final class ScheduleController: RouteCollection {
         return try req.content.decode(Schedule.self).flatMap({ schedule in
             return schedule.update(on: req)
         })
+    }
+    
+    func testParse(_ req: Request) -> String {
+        
+        let parser = ScheduleParser.shared
+        
+        _ = parser.parse()
+        
+        return "Parsed"
     }
 }

@@ -12,9 +12,12 @@ let package = Package(
 
         // 👤 Authentication and Authorization framework for Fluent.
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
+        
+        // 🥣 Parse HTML
+        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "1.7.4"),
     ],
     targets: [
-        .target(name: "App", dependencies: ["FluentMySQL", "Vapor",  "Authentication"]),
+        .target(name: "App", dependencies: ["FluentMySQL", "Vapor",  "Authentication", "SwiftSoup"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
