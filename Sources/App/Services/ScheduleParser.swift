@@ -7,62 +7,6 @@ class ScheduleParser {
     
     private let studentPortalURL = URL(string: "https://students.bmstu.ru")
     
-    struct GroupElement {
-        
-        /// Example: 'ИУ5-51'
-        let identificator: String
-        let url: URL
-    }
-    
-    struct ScheduleElement {
-        
-        let events: [EventElement]
-    }
-    
-    struct EventElement {
-        
-        enum Kind: String {
-            case lecture = "лек"
-            case seminar = "сем"
-            case lab = "лаб"
-            case other
-        }
-        
-        enum RepeatKind: String {
-            case numerator = "чс"
-            case denominator = "зн"
-            case both
-        }
-        
-        let kind: Kind
-        
-        let startTime: String
-        let endTime: String
-        
-        let repeatKind: RepeatKind
-        let weekday: Weekday
-        
-        let title: String
-        let teacher: String
-        let location: String
-        
-        var isValid: Bool {
-            return !title.isEmpty
-        }
-    }
-    
-    enum Weekday: String {
-        case monday = "пн"
-        case tuesday = "вт"
-        case wednesday = "ср"
-        case thursday = "чт"
-        case friday = "пт"
-        case saturday = "сб"
-    }
-    
-    fileprivate let weekdayStrings = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
-    fileprivate let shortWeekdayStrings = ["пн", "вт", "ср", "чт", "пт", "сб"]
-
     func parse() {
         
         guard let groupsList = self.getGroupsElements() else {
@@ -70,16 +14,28 @@ class ScheduleParser {
         }
         
         var schedules: [ScheduleElement] = []
-        for group in groupsList {
+        for (index, group) in groupsList.enumerated() {
+            
+            guard index > 6 else {
+                continue
+            }
             
             if let schedule = self.getScheduleElement(for: group) {
-                print("\(group.identificator): \(schedule.events.count) занятий")
+                print("\(index)) \(group.identificator): \(schedule.events.count) занятий")
+                schedule.events.forEach { event in
+                    print("День недели: \(event.weekday.rawValue.uppercased())")
+                    print("\(event.startTime) - \(event.endTime) | [\(event.kind)] \(event.title) (\(event.location)\(event.anotherLocation != nil ? ", \(event.anotherLocation!)" : "")) | \(event.teacher)")
+                }
+                print("\n")
+                
                 schedules.append(schedule)
             }
         }
     
         // ..
     }
+    
+    // MARK: Schedules List
     
     private func getGroupsElements() -> [GroupElement]? {
         
@@ -121,6 +77,11 @@ class ScheduleParser {
             return nil
         }
     }
+    
+    // MARK: Schedule
+    
+    fileprivate let weekdayStrings = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
+    fileprivate let shortWeekdayStrings = ["пн", "вт", "ср", "чт", "пт", "сб"]
     
     private func getScheduleElement(for group: GroupElement) -> ScheduleElement? {
         
@@ -196,7 +157,9 @@ class ScheduleParser {
         }
     }
     
-    func parseTime(raw: String) -> (start: String, end: String) {
+    // MARK: Event
+    
+    private func parseTime(raw: String) -> (start: String, end: String) {
         let elements = raw.split(separator: "-")
         
         let startTime = String(elements[0]).trimmingBoundSpaces()
@@ -205,7 +168,7 @@ class ScheduleParser {
         return (startTime, endTime)
     }
     
-    func parseEvent(raw: String, startTime: String, endTime: String, repeatKind: EventElement.RepeatKind, weekday: Weekday) -> EventElement {
+    private func parseEvent(raw: String, startTime: String, endTime: String, repeatKind: EventElement.RepeatKind, weekday: Weekday) -> EventElement {
         var raw = raw.replacingOccurrences(of: "\u{00A0}", with: " ")
         
         // Parse kind
@@ -222,8 +185,22 @@ class ScheduleParser {
         
         // Parse location
         var location = ""
+        var anotherLocation: String?
         if let locationRange = raw.range(of: "\\d{3,4}\\w?", options: .regularExpression) {
             location = String(raw[locationRange])
+            
+            raw.removeSubstring(in: locationRange)
+            
+            // Check for another location
+            if let locationRange = raw.range(of: "\\d{3,4}\\w?", options: .regularExpression) {
+                anotherLocation = String(raw[locationRange])
+                
+                raw.removeSubstring(in: locationRange)
+                raw = raw.trimmingBoundCharacter(",")
+            }
+
+        } else if let locationRange = raw.lowercased().range(of: "каф") {
+            location = "кафедра"
             
             raw.removeSubstring(in: locationRange)
         }
@@ -239,7 +216,64 @@ class ScheduleParser {
         // Parse title
         let title = raw.trimmingBoundSpaces()
         
-        return EventElement(kind: kind, startTime: startTime, endTime: endTime, repeatKind: repeatKind, weekday: weekday, title: title, teacher: teacher, location: location)
+        return EventElement(kind: kind, startTime: startTime, endTime: endTime, repeatKind: repeatKind, weekday: weekday, title: title, teacher: teacher, location: location, anotherLocation: anotherLocation)
     }
 }
 
+extension ScheduleParser {
+    
+    private struct GroupElement {
+        
+        /// Example: 'ИУ5-51'
+        let identificator: String
+        let url: URL
+    }
+    
+    private struct ScheduleElement {
+        
+        let events: [EventElement]
+    }
+    
+    private struct EventElement {
+        
+        enum Kind: String {
+            case lecture = "лек"
+            case seminar = "сем"
+            case lab = "лаб"
+            case other
+        }
+        
+        enum RepeatKind: String {
+            case numerator = "чс"
+            case denominator = "зн"
+            case both
+        }
+        
+        let kind: Kind
+        
+        let startTime: String
+        let endTime: String
+        
+        let repeatKind: RepeatKind
+        let weekday: Weekday
+        
+        let title: String
+        let teacher: String
+
+        let location: String
+        let anotherLocation: String?
+
+        var isValid: Bool {
+            return !title.isEmpty
+        }
+    }
+    
+    private enum Weekday: String {
+        case monday = "пн"
+        case tuesday = "вт"
+        case wednesday = "ср"
+        case thursday = "чт"
+        case friday = "пт"
+        case saturday = "сб"
+    }
+}

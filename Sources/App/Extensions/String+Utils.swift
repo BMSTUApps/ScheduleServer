@@ -27,17 +27,21 @@ extension String {
         self.removeSubrange(range)
     }
     
-    func trimmingBoundSpaces() -> String {
+    func trimmingBoundCharacter(_ character: String) -> String {
         var result = self
         
-        while result.hasPrefix(" ") {
+        while result.hasPrefix(character) {
             result = String(result.dropFirst())
         }
         
-        while result.hasSuffix(" ") {
+        while result.hasSuffix(character) {
             result = String(result.dropLast())
         }
         
         return result
+    }
+    
+    func trimmingBoundSpaces() -> String {
+        return trimmingBoundCharacter(" ")
     }
 }
