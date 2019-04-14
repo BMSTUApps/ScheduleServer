@@ -101,6 +101,7 @@ class ScheduleParser {
             }
             
             let timeElementClass = "bg-grey text-nowrap"
+            
             let numeratorElementClass = "text-success"
             let denominatorElementClass = "text-info"
             
@@ -121,6 +122,14 @@ class ScheduleParser {
                         // Event time
                         let rawTime = try rowElement.select("td[class='\(timeElementClass)']").text()
                         let time = parseTime(raw: rawTime)
+                        
+                        // Event
+                        let rawEvent = try rowElement.select("td[colspan='2']").text()
+                        let event = parseEvent(raw: rawEvent, startTime: time.start, endTime: time.end, repeatKind: .both, weekday: weekday)
+                        
+                        if event.isValid {
+                            events.append(event)
+                        }
                         
                         // Numerator event
                         let rawNumeratorEvent = try rowElement.select("td[class='\(numeratorElementClass)']").text()
