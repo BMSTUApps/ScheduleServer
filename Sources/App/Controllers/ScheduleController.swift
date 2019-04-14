@@ -19,7 +19,7 @@ final class ScheduleController: RouteCollection {
         // REQUEST: api/schedule/edit
         // TODO: api/schedule/edit
         
-        // REQUEST: api/teachers/parse
+        // REQUEST: api/schedule/parse
         scheduleRoute.get("parse", use: testParse)
     }
     
@@ -136,6 +136,8 @@ final class ScheduleController: RouteCollection {
         let parser = ScheduleParser.shared
         
         _ = parser.parse()
+//        let testString = "(сем) Право интеллектуальной собственности 407ю Амелина К. Е."
+//        parser.parseEvent(raw: testString, repeatKind: .denominator)
         
         return "Parsed"
     }
