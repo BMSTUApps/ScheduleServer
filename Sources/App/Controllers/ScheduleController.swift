@@ -133,12 +133,9 @@ final class ScheduleController: RouteCollection {
     
     func testParse(_ req: Request) -> String {
         
-        let parser = ScheduleParser.shared
-        
-        _ = parser.parse()
-//        let testString = "(сем) Право интеллектуальной собственности 407ю Амелина К. Е."
-//        parser.parseEvent(raw: testString, repeatKind: .denominator)
-        
+        let service = ScheduleService()
+        service.test()
+                
         return "Parsed"
     }
 }

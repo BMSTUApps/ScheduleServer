@@ -1,38 +1,140 @@
-import Vapor
+import Foundation
 import SwiftSoup
 
-class ScheduleParser {
+struct RawSchedule {
+    let group: RawGroup
+    let events: [RawEvent]
+}
+
+struct RawGroup {
+    let identifier: String
+}
+
+struct RawEvent {
     
-    static let shared = ScheduleParser()
+    enum Kind {
+        case lecture
+        case seminar
+        case lab
+        case other
+    }
+    
+    enum Repeat {
+        case numerator
+        case denominator
+        case both
+    }
+    
+    enum Weekday {
+        case monday
+        case tuesday
+        case wednesday
+        case thursday
+        case friday
+        case saturday
+    }
+    
+    let kind: Kind
+    
+    let startTime: String
+    let endTime: String
+    
+    let repeatKind: Repeat
+    let weekday: Weekday
+    
+    let title: String
+    let teacher: String
+    
+    let location: String
+    let anotherLocation: String?
+}
+
+protocol ScheduleParser {
+    func availableGroups(completion: ([RawGroup]) -> ())
+    func parseSchedule(for group: RawGroup, completion: (RawSchedule?) -> ())
+    func parseSchedules(completion: (RawSchedule?) -> ())
+}
+
+class ScheduleRegexParser: ScheduleParser {
     
     private let studentPortalURL = URL(string: "https://students.bmstu.ru")
     
-    func parse() {
-        
-        guard let groupsList = self.getGroupsElements() else {
-            return
-        }
-        
-        var schedules: [ScheduleElement] = []
-        for (index, group) in groupsList.enumerated() {
-            
-            guard index > 6 else {
-                continue
+    init() {
+        updateGroupsIfNeeded()
+    }
+
+    func availableGroups(completion: ([RawGroup]) -> ()) {
+            if cachedGroups == nil {
+                updateGroupsIfNeeded()
             }
             
-            if let schedule = self.getScheduleElement(for: group) {
-                print("\(index)) \(group.identificator): \(schedule.events.count) занятий")
-                schedule.events.forEach { event in
-                    print("День недели: \(event.weekday.rawValue.uppercased())")
-                    print("\(event.startTime) - \(event.endTime) | [\(event.kind)] \(event.title) (\(event.location)\(event.anotherLocation != nil ? ", \(event.anotherLocation!)" : "")) | \(event.teacher)")
-                }
-                print("\n")
-                
-                schedules.append(schedule)
-            }
-        }
+            guard let elements = cachedGroups else { return }
+            completion(elements.map { $0.raw })
+    }
     
-        // ..
+    func parseSchedule(for group: RawGroup, completion: (RawSchedule?) -> ()) {
+            guard let groupElement = cachedGroups?.first(where: { element -> Bool in
+                return element.identificator == group.identifier
+            }) else {
+                completion(nil)
+                return
+            }
+            
+            guard let schedule = getScheduleElement(for: groupElement) else {
+                completion(nil)
+                return
+            }
+            
+            let events = schedule.events.map { $0.raw }
+            completion(RawSchedule(group: group, events: events))
+    }
+    
+    func parseSchedules(completion: (RawSchedule?) -> ()) {
+            if cachedGroups == nil {
+                updateGroupsIfNeeded()
+            }
+            
+            guard let groups = cachedGroups else {
+                return
+            }
+            
+            for group in groups {
+                let scheduleElement = getScheduleElement(for: group)
+                let events = scheduleElement?.events.map { $0.raw }
+                completion(RawSchedule(group: group.raw, events: events ?? []))
+            }
+            
+            return
+    }
+    
+    // MARK: Private
+    
+    private var cachedGroupsHash: Int?
+    private var cachedGroups: [GroupElement]?
+    
+    private func updateGroupsIfNeeded() {
+        queue.sync {
+            guard let groupsElements = getGroupsElements() else { return }
+            let newHash = generateGroupsElementsHash(groupsElements)
+            
+            if let oldHash = cachedGroupsHash, oldHash == newHash {
+                // No update needed
+                return
+            }
+            
+            cachedGroupsHash = newHash
+            cachedGroups = groupsElements
+        }
+    }
+    
+    private func generateGroupsElementsHash(_ elements: [GroupElement]) -> Int {
+        
+        var urlsString: String = ""
+        elements.forEach { element in
+            urlsString.append(element.url.relativeString)
+        }
+        
+        return urlsString.hash
     }
     
     // MARK: Schedules List
@@ -229,13 +331,17 @@ class ScheduleParser {
     }
 }
 
-extension ScheduleParser {
+extension ScheduleRegexParser {
     
     private struct GroupElement {
         
         /// Example: 'ИУ5-51'
         let identificator: String
         let url: URL
+        
+        var raw: RawGroup {
+            return RawGroup(identifier: identificator)
+        }
     }
     
     private struct ScheduleElement {
@@ -250,12 +356,36 @@ extension ScheduleParser {
             case seminar = "сем"
             case lab = "лаб"
             case other
+            
+            var raw: RawEvent.Kind {
+                switch self {
+                case .lecture:
+                    return .lecture
+                case .seminar:
+                    return .seminar
+                case .lab:
+                    return .lab
+                case .other:
+                    return .other
+                }
+            }
         }
         
         enum RepeatKind: String {
             case numerator = "чс"
             case denominator = "зн"
             case both
+            
+            var raw: RawEvent.Repeat {
+                switch self {
+                case .numerator:
+                    return .numerator
+                case .denominator:
+                    return .denominator
+                case .both:
+                    return .both
+                }
+            }
         }
         
         let kind: Kind
@@ -275,6 +405,18 @@ extension ScheduleParser {
         var isValid: Bool {
             return !title.isEmpty
         }
+        
+        var raw: RawEvent {
+            return RawEvent(kind: kind.raw,
+                            startTime: startTime,
+                            endTime: endTime,
+                            repeatKind: repeatKind.raw,
+                            weekday: weekday.raw,
+                            title: title,
+                            teacher: teacher,
+                            location: location,
+                            anotherLocation: anotherLocation)
+        }
     }
     
     private enum Weekday: String {
@@ -284,5 +426,22 @@ extension ScheduleParser {
         case thursday = "чт"
         case friday = "пт"
         case saturday = "сб"
+        
+        var raw: RawEvent.Weekday {
+            switch self {
+            case .monday:
+                return .monday
+            case .tuesday:
+                return .tuesday
+            case .wednesday:
+                return .wednesday
+            case .thursday:
+                return .thursday
+            case .friday:
+                return .friday
+            case .saturday:
+                return .saturday
+            }
+        }
     }
 }
