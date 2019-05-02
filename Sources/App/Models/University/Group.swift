@@ -19,6 +19,15 @@ final class Group: MySQLModel {
         self.department = department
         self.scheduleID = scheduleID
     }
+    
+    convenience init?(id: Int? = nil, identificator: String, scheduleID: Schedule.ID) {
+        let components = identificator.components(separatedBy: "-")
+        guard components.count == 2, let number = components.last, let department = components.first else {
+            return nil
+        }
+
+        self.init(id: id, number: number, department: department, scheduleID: scheduleID)
+    }
 }
 
 extension Group {

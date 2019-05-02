@@ -134,7 +134,7 @@ final class ScheduleController: RouteCollection {
     func testParse(_ req: Request) -> String {
         
         let service = ScheduleService()
-        service.test()
+        service.updateSchedules()
                 
         return "Parsed"
     }

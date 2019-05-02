@@ -96,3 +96,18 @@ extension Event: Content { }
 
 /// Allows `Lesson` to be used as a dynamic parameter in route definitions.
 extension Event: Parameter { }
+
+//extension Event {
+//
+//    convenience init(raw: RawEvent) {
+//        self.init(
+//            title: raw.title,
+//            kind: "#FAKE",
+//            location: raw.location,
+//            date: Date(),
+//            startTime: raw.startTime,
+//            endTime: raw.endTime,
+//            scheduleID: <#T##Schedule.ID#>)
+//    }
+//
+//}
