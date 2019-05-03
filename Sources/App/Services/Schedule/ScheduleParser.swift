@@ -7,6 +7,24 @@ struct RawSchedule {
 
 struct RawGroup {
     let identifier: String
+    
+    var department: String? {
+        let components = identifier.components(separatedBy: "-")
+        guard components.count == 2, let department = components.first else {
+            return nil
+        }
+        
+        return department
+    }
+    
+    var number: String? {
+        let components = identifier.components(separatedBy: "-")
+        guard components.count == 2, let number = components.last else {
+            return nil
+        }
+        
+        return number
+    }
 }
 
 struct RawEvent {

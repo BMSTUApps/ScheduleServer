@@ -8,8 +8,8 @@ class ScheduleService {
     private let queue = DispatchQueue(label: "ru.bestK1ng.schedule", qos: .utility)
     
     func updateSchedules() {
+        
         queue.asyncAfter(deadline: .now() + 5) {
-//            self.removeSchedules()
 
             self.parser.availableGroups(completion: { groups in
                 
@@ -20,7 +20,7 @@ class ScheduleService {
                             print("Error: Empty schedule")
                             return
                         }
-                        self.saveSchedule(raw: schedule)
+                        self.saveSchedules(raws: [schedule])
                         print("Save schedule \(schedule.group.identifier)")
                     })
                 })
@@ -42,58 +42,75 @@ class ScheduleService {
 //            })
         }
     }
-    
-    private func removeSchedules() {
-        
+
+    private func saveSchedules(raws: [RawSchedule]) {
         do {
             let environment = try Environment.detect()
-            
-            try app(environment).withNewConnection(to: .mysql) { connection -> EventLoopFuture<Void> in
-                return Schedule.query(on: connection).delete()
+            let currentApp = try app(environment)
+            let connection = try currentApp.newConnection(to: .mysql).wait()
+
+            for raw in raws {
+                saveSchedule(raw: raw, on: connection)
             }
             
-            try app(environment).withNewConnection(to: .mysql) { connection -> EventLoopFuture<Void> in
-                return Group.query(on: connection).delete()
-            }
-            
-            try app(environment).withNewConnection(to: .mysql) { connection -> EventLoopFuture<Void> in
-                return Event.query(on: connection).delete()
-            }
+            connection.close()
             
         } catch let error {
-            print("Error with removing schedules tables: \(error)")
+            print("Error with connection to DB: \(error)")
         }
     }
     
-    private func saveSchedule(raw: RawSchedule) {
+    private func saveSchedule(raw: RawSchedule, on connection: DatabaseConnectable) {
         do {
-            let environment = try Environment.detect()
-            _ = try app(environment).newConnection(to: .mysql).do({ connection in
-                print("\(connection)")
-            })
+            // Find group
+            guard let department = raw.group.department, let number = raw.group.number else { return }
+            let group = try Group.query(on: connection)
+                .filter(\.department == department)
+                .filter(\.number == number).first().map(to: Group.self, { group -> Group in
+                guard let group = group else {
+
+                    // If the group isn't found => create schedule
+                    var schedule = Schedule(isTemplate: true)
+                    schedule = try schedule.save(on: connection).wait()
+                    
+                    // Then create group
+                    var group = Group(identificator: raw.group.identifier, scheduleID: schedule.id!)!
+                    group = try group.save(on: connection).wait()
+                    return group
+                }
+                
+                return group
+            }).wait()
             
-            let connection = try app(environment).newConnection(to: .mysql).wait()
+            // Find schedule
+            let schedule = try Schedule.query(on: connection).filter(\.id == group.scheduleID).first().map({ schedule -> Schedule in
+                guard let schedule = schedule else {
+                    
+                    // If the schedule isn't found => create schedule
+                    var schedule = Schedule(isTemplate: true)
+                    schedule = try schedule.save(on: connection).wait()
+
+                    // Then update group
+                    let group = try Group.query(on: connection)
+                        .filter(\.department == department)
+                        .filter(\.number == number).first().wait()!
+                    group.scheduleID = schedule.id!
+                    _ = try group.save(on: connection).wait()
+                    
+                    return schedule
+                }
+                
+                return schedule
+            }).wait()
             
-            // Create schedule
-            let schedule = Schedule(isTemplate: true)
-            try schedule.save(on: connection).wait()
-            
-            // Create group
-            guard let scheduleID = schedule.id else { return }
-            guard let group = Group(identificator: raw.group.identifier, scheduleID: scheduleID) else { return }
-            try group.save(on: connection).wait()
-            
-            // Create events
-//            let events: [Event] = {
-//                var events:
-//
-//                return []
-//            }()
-            
-            defer { connection.close() }
+            // Find old events from schedule and delete
+            let events = try Event.query(on: connection).filter(\.scheduleID == schedule.id!).all().wait()
+            try events.forEach { event in
+                try event.delete(on: connection).wait()
+            }
             
         } catch let error {
-            print("Error")
+            print("Error with saving schedule \"\(raw.group.identifier)\": \(error)")
         }
     }
 }

@@ -22,7 +22,12 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(middlewares)
 
     /// Register custom MySQL Config
-    let mysqlConfig = MySQLDatabaseConfig(hostname: "localhost", port: 3306, username: "root", password: "rootroot", database: "bmstu")
+    let mysqlConfig = MySQLDatabaseConfig(
+        hostname: "localhost",
+        port: 3306,
+        username: "root",
+        password: "rootroot",
+        database: "bmstu")
     services.register(mysqlConfig)
     
     /// Configure migrations
