@@ -9,8 +9,7 @@ class ScheduleService {
     
     func updateSchedules() {
         
-        queue.asyncAfter(deadline: .now() + 5) {
-
+        queue.async {
             self.parser.availableGroups(completion: { groups in
                 
                 let testGroups = groups.prefix(upTo: 1)
@@ -21,25 +20,10 @@ class ScheduleService {
                             return
                         }
                         self.saveSchedules(raws: [schedule])
-                        print("Save schedule \(schedule.group.identifier)")
+                        print("Saved schedule for \(schedule.group.identifier)")
                     })
                 })
-                
             })
-            
-//            var testCount = 0
-//            self.parser.parseSchedules(completion: { schedule in
-//                if testCount >= 4 {
-//                    return
-//                }
-//                testCount += 1
-//
-//                guard let schedule = schedule else {
-//                    print("Error: Empty schedule")
-//                    return
-//                }
-//                self.saveSchedule(raw: schedule)
-//            })
         }
     }
 
@@ -62,52 +46,59 @@ class ScheduleService {
     
     private func saveSchedule(raw: RawSchedule, on connection: DatabaseConnectable) {
         do {
-            // Find group
-            guard let department = raw.group.department, let number = raw.group.number else { return }
-            let group = try Group.query(on: connection)
-                .filter(\.department == department)
-                .filter(\.number == number).first().map(to: Group.self, { group -> Group in
-                guard let group = group else {
-
-                    // If the group isn't found => create schedule
-                    var schedule = Schedule(isTemplate: true)
-                    schedule = try schedule.save(on: connection).wait()
-                    
-                    // Then create group
-                    var group = Group(identificator: raw.group.identifier, scheduleID: schedule.id!)!
-                    group = try group.save(on: connection).wait()
-                    return group
-                }
-                
-                return group
-            }).wait()
+            var group: Group?
+            var schedule: Schedule?
             
-            // Find schedule
-            let schedule = try Schedule.query(on: connection).filter(\.id == group.scheduleID).first().map({ schedule -> Schedule in
-                guard let schedule = schedule else {
-                    
-                    // If the schedule isn't found => create schedule
-                    var schedule = Schedule(isTemplate: true)
-                    schedule = try schedule.save(on: connection).wait()
+            guard let department = raw.group.department, let number = raw.group.number else { return }
 
-                    // Then update group
-                    let group = try Group.query(on: connection)
+            // Find group
+            group = try Group.query(on: connection).filter(\.department == department).filter(\.number == number).first().wait()
+            
+            // If the group isn't found
+            if group == nil {
+                
+                // => create schedule
+                schedule = Schedule(isTemplate: true)
+                schedule = try schedule?.save(on: connection).wait()
+                
+                // => create group
+                group = Group(identificator: raw.group.identifier, scheduleID: (schedule?.id)!)
+                group = try group?.save(on: connection).wait()
+            }
+            
+            guard let unwrappedGroup = group else { return }
+            
+            // If schedule is empty
+            if schedule == nil {
+                
+                // Find schedule
+                schedule = try Schedule.query(on: connection).filter(\.id == unwrappedGroup.scheduleID).first().wait()
+                
+                // If the schedule isn't found
+                if schedule == nil {
+                    
+                    // => create schedule
+                    schedule = Schedule(isTemplate: true)
+                    schedule = try schedule?.save(on: connection).wait()
+                    
+                    // => update group
+                    var unwrappedGroup = try Group.query(on: connection)
                         .filter(\.department == department)
                         .filter(\.number == number).first().wait()!
-                    group.scheduleID = schedule.id!
-                    _ = try group.save(on: connection).wait()
-                    
-                    return schedule
+                    unwrappedGroup.scheduleID = schedule!.id!
+                    unwrappedGroup = try unwrappedGroup.save(on: connection).wait()
                 }
-                
-                return schedule
-            }).wait()
+            }
+            
+            guard let unwrappedSchedule = schedule else { return }
             
             // Find old events from schedule and delete
-            let events = try Event.query(on: connection).filter(\.scheduleID == schedule.id!).all().wait()
+            let events = try Event.query(on: connection).filter(\.scheduleID == unwrappedSchedule.id!).all().wait()
             try events.forEach { event in
                 try event.delete(on: connection).wait()
             }
+            
+            // TODO: Save events
             
         } catch let error {
             print("Error with saving schedule \"\(raw.group.identifier)\": \(error)")
