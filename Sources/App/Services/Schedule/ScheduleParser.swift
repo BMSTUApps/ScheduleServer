@@ -29,26 +29,17 @@ struct RawGroup {
 
 struct RawEvent {
     
-    enum Kind {
-        case lecture
-        case seminar
-        case lab
-        case other
+    enum Kind: String {
+        case lecture = "lecture"
+        case seminar = "seminar"
+        case lab = "lab"
+        case other = "other"
     }
     
     enum Repeat {
         case numerator
         case denominator
         case both
-    }
-    
-    enum Weekday {
-        case monday
-        case tuesday
-        case wednesday
-        case thursday
-        case friday
-        case saturday
     }
     
     let kind: Kind

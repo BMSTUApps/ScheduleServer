@@ -12,7 +12,7 @@ class ScheduleService {
         queue.async {
             self.parser.availableGroups(completion: { groups in
                 
-                let testGroups = groups.prefix(upTo: 1)
+                let testGroups = groups.suffix(1)
                 testGroups.forEach({ group in
                     self.parser.parseSchedule(for: group, completion: { schedule in
                         guard let schedule = schedule else {
@@ -98,10 +98,57 @@ class ScheduleService {
                 try event.delete(on: connection).wait()
             }
             
-            // TODO: Save events
+            // Save events
+            try raw.events.forEach { raw in
+                var event = raw.map(scheduleID: unwrappedSchedule.id!)
+                event = try event?.save(on: connection).wait()
+            }
             
         } catch let error {
             print("Error with saving schedule \"\(raw.group.identifier)\": \(error)")
         }
+    }
+}
+
+private extension RawEvent {
+    func map(teacherID: Teacher.ID? = nil, scheduleID: Schedule.ID) -> Event? {
+        guard let startSemesterDate = ServerDateService.semesterStartDate else { return nil }
+        
+        let week = startSemesterDate.week
+        let weekOffset: Int = {
+            switch repeatKind {
+            case .numerator, .both:
+                return 0
+            case .denominator:
+                return 1
+            }
+        }()
+        
+        let repeatIn: Int = {
+            switch repeatKind {
+            case .numerator, .denominator:
+                return 2
+            case .both:
+                return 1
+            }
+        }()
+        
+        var date = Date.date(of: weekday, weekNumber: week + weekOffset)
+        if date < startSemesterDate {
+            date = Date.date(of: weekday, weekNumber: week + 2 * weekOffset)
+        }
+
+        return Event(
+            title: title,
+            kind: kind.rawValue,
+            location: location,
+            date: date,
+            repeatIn: repeatIn,
+            endDate: ServerDateService.semesterEndDate,
+            startTime: startTime,
+            endTime: endTime,
+            teacherID: 0,
+            scheduleID: scheduleID
+        )
     }
 }

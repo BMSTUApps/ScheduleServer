@@ -158,7 +158,7 @@ class ScheduleRegexParser: ScheduleParser {
                 
                 do {
                     // Event weekday
-                    guard let weekday = Weekday(rawValue: try elements[0].text().lowercased()),
+                    guard let weekday = RawWeekday(rawValue: try elements[0].text().lowercased()),
                         elements.count >= 3 else {
                             continue
                     }
@@ -224,7 +224,7 @@ class ScheduleRegexParser: ScheduleParser {
         return (startTime, endTime)
     }
     
-    private func parseEvent(raw: String, startTime: String, endTime: String, repeatKind: EventElement.RepeatKind, weekday: Weekday) -> EventElement {
+    private func parseEvent(raw: String, startTime: String, endTime: String, repeatKind: EventElement.RepeatKind, weekday: RawWeekday) -> EventElement {
         var raw = raw.replacingOccurrences(of: "\u{00A0}", with: " ")
         
         // Parse kind
@@ -339,7 +339,7 @@ extension ScheduleRegexParser {
         let endTime: String
         
         let repeatKind: RepeatKind
-        let weekday: Weekday
+        let weekday: RawWeekday
         
         let title: String
         let teacher: String
@@ -364,7 +364,7 @@ extension ScheduleRegexParser {
         }
     }
     
-    private enum Weekday: String {
+    private enum RawWeekday: String {
         case monday = "пн"
         case tuesday = "вт"
         case wednesday = "ср"
@@ -372,7 +372,7 @@ extension ScheduleRegexParser {
         case friday = "пт"
         case saturday = "сб"
         
-        var raw: RawEvent.Weekday {
+        var raw: Weekday {
             switch self {
             case .monday:
                 return .monday
