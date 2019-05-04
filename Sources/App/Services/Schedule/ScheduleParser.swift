@@ -55,6 +55,19 @@ struct RawEvent {
     
     let location: String
     let anotherLocation: String?
+    
+    var teacherFirstNameChar: String? {
+        let components = teacher.components(separatedBy: ".")
+        return (components.count == 3) ? components[1] : nil
+    }
+    var teacherMiddleNameChar: String? {
+        let components = teacher.components(separatedBy: ".")
+        return (components.count == 3) ? components[2] : nil
+    }
+    var teacherLastName: String? {
+        let components = teacher.components(separatedBy: ".")
+        return components.first
+    }
 }
 
 protocol ScheduleParser {

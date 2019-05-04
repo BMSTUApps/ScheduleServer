@@ -24,7 +24,11 @@ extension String {
     }
     
     mutating func removeSubstring(in range: Range<String.Index>) {
-        self.removeSubrange(range)
+        do {
+            try self.removeSubrange(range)
+        } catch let error {
+            print("Error: \(error)")
+        }
     }
     
     func trimmingBoundCharacter(_ character: String) -> String {

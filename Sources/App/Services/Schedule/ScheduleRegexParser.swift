@@ -257,8 +257,12 @@ class ScheduleRegexParser: ScheduleParser {
             
         } else if let locationRange = raw.lowercased().range(of: "каф") {
             location = "кафедра"
+
+            // Bug with apple ".range(of:)"
+//            raw.removeSubstring(in: locationRange)
             
-            raw.removeSubstring(in: locationRange)
+            raw = raw.replacingOccurrences(of: "Каф", with: "")
+            raw = raw.replacingOccurrences(of: "каф", with: "")
         }
         
         // Parse teacher

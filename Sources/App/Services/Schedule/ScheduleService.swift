@@ -7,20 +7,23 @@ class ScheduleService {
     private let parser: ScheduleParser = ScheduleRegexParser()
     private let queue = DispatchQueue(label: "ru.bestK1ng.schedule", qos: .utility)
     
+    private let sleepParserDelay: UInt32 = 1 // seconds
+    private let sleepDatabaseDelay: UInt32 = 1 // seconds
+
     func updateSchedules() {
-        
         queue.async {
             self.parser.availableGroups(completion: { groups in
-                
-                let testGroups = groups.suffix(1)
-                testGroups.forEach({ group in
+                var index = 1
+                groups.forEach({ group in
+                    sleep(self.sleepParserDelay)
                     self.parser.parseSchedule(for: group, completion: { schedule in
                         guard let schedule = schedule else {
                             print("Error: Empty schedule")
                             return
                         }
                         self.saveSchedules(raws: [schedule])
-                        print("Saved schedule for \(schedule.group.identifier)")
+                        print("\(index): Saved schedule for \(schedule.group.identifier) (\(schedule.events.count) events)")
+                        index += 1
                     })
                 })
             })
@@ -36,7 +39,7 @@ class ScheduleService {
             for raw in raws {
                 saveSchedule(raw: raw, on: connection)
             }
-            
+
             connection.close()
             
         } catch let error {
@@ -100,7 +103,28 @@ class ScheduleService {
             
             // Save events
             try raw.events.forEach { raw in
-                var event = raw.map(scheduleID: unwrappedSchedule.id!)
+                var teacher: Teacher?
+                
+                // If we have enough data about the teacher
+                if let lastName = raw.teacherLastName,
+                    let firstNameChar = raw.teacherFirstNameChar,
+                    let middleNameChar = raw.teacherMiddleNameChar {
+
+                    // => find teacher
+                    teacher = try Teacher.query(on: connection).filter(\.lastName == lastName).first().map({ teacher -> Teacher? in
+                        
+                        // If teacher data match
+                        if let teacher = teacher,
+                            teacher.firstName.prefix(1) == firstNameChar,
+                            teacher.middleName.prefix(1) == middleNameChar {
+                            return teacher
+                        }
+                        
+                        return nil
+                    }).wait()
+                }
+                
+                var event = raw.map(teacherID: teacher?.id, scheduleID: unwrappedSchedule.id!)
                 event = try event?.save(on: connection).wait()
             }
             
@@ -147,7 +171,7 @@ private extension RawEvent {
             endDate: ServerDateService.semesterEndDate,
             startTime: startTime,
             endTime: endTime,
-            teacherID: 0,
+            teacherID: teacherID ?? 0,
             scheduleID: scheduleID
         )
     }
