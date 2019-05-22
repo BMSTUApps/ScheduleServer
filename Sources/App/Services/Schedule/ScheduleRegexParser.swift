@@ -18,7 +18,7 @@ class ScheduleRegexParser: ScheduleParser {
         completion(elements.map { $0.raw })
     }
     
-    func parseSchedule(for group: RawGroup, completion: (RawSchedule?) -> ()) {
+    func parseSchedule(for group: RawGroup, completion: @escaping (RawSchedule?) -> ()) {
         guard let groupElement = cachedGroups?.first(where: { element -> Bool in
             return element.identificator == group.identifier
         }) else {
@@ -26,13 +26,23 @@ class ScheduleRegexParser: ScheduleParser {
             return
         }
         
-        guard let schedule = getScheduleElement(for: groupElement) else {
-            completion(nil)
-            return
-        }
+//        guard let schedule = getScheduleElement(for: groupElement) else {
+//            completion(nil)
+//            return
+//        }
+//
+//        let events = schedule.events.map { $0.raw }
+//        completion(RawSchedule(group: group, events: events))
         
-        let events = schedule.events.map { $0.raw }
-        completion(RawSchedule(group: group, events: events))
+        getSchedule(for: groupElement) { schedule in
+            guard let schedule = schedule else {
+                completion(nil)
+                return
+            }
+            
+            let events = schedule.events.map { $0.raw }
+            completion(RawSchedule(group: group, events: events))
+        }
     }
     
     func parseSchedules(completion: (RawSchedule?) -> ()) {
@@ -91,7 +101,7 @@ class ScheduleRegexParser: ScheduleParser {
         }
         
         do {
-            
+
             let html = try String.init(contentsOf: url)
             let document = try SwiftSoup.parse(html)
             
@@ -129,6 +139,98 @@ class ScheduleRegexParser: ScheduleParser {
     
     fileprivate let weekdayStrings = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота"]
     fileprivate let shortWeekdayStrings = ["пн", "вт", "ср", "чт", "пт", "сб"]
+    
+    private func getSchedule(for group: GroupElement, completion: @escaping (ScheduleElement?) -> Void) {
+        
+        
+        let task = URLSession.shared.dataTask(with: group.url) { (data, _, error) in
+            
+            guard let data = data, let html = String.init(data: data, encoding: .utf8) else {
+                completion(nil)
+                return
+            }
+         
+            do {
+                let document = try SwiftSoup.parse(html)
+                
+                let dayElementClass = "table table-bordered text-center table-responsive"
+                let rawDayElements = try document.select("table[class='\(dayElementClass)']")
+                
+                // Remove duplicate days
+                let filteredDayElements = try rawDayElements.filter { element -> Bool in
+                    let dayTitle = try element.select("strong").text().lowercased()
+                    
+                    return self.shortWeekdayStrings.contains(dayTitle)
+                }
+                
+                let timeElementClass = "bg-grey text-nowrap"
+                
+                let numeratorElementClass = "text-success"
+                let denominatorElementClass = "text-info"
+                
+                var events: [EventElement] = []
+                for dayElement in filteredDayElements {
+                    let elements = try dayElement.select("tr").array()
+                    
+                    do {
+                        // Event weekday
+                        guard let weekday = RawWeekday(rawValue: try elements[0].text().lowercased()),
+                            elements.count >= 3 else {
+                                continue
+                        }
+                        
+                        let rowElements = elements.suffix(from: 2)
+                        for rowElement in rowElements {
+                            
+                            // Event time
+                            let rawTime = try rowElement.select("td[class='\(timeElementClass)']").text()
+                            let time = self.parseTime(raw: rawTime)
+                            
+                            // Event
+                            let rawEvent = try rowElement.select("td[colspan='2']").text()
+                            let event = self.parseEvent(raw: rawEvent, startTime: time.start, endTime: time.end, repeatKind: .both, weekday: weekday)
+                            
+                            if event.isValid {
+                                events.append(event)
+                            }
+                            
+                            // Numerator event
+                            let rawNumeratorEvent = try rowElement.select("td[class='\(numeratorElementClass)']").text()
+                            let numeratorEvent = self.parseEvent(raw: rawNumeratorEvent, startTime: time.start, endTime: time.end, repeatKind: .numerator, weekday: weekday)
+                            
+                            if numeratorEvent.isValid {
+                                events.append(numeratorEvent)
+                            }
+                            
+                            // Denominator event
+                            let rawDenominatorEvent = try rowElement.select("td[class='\(denominatorElementClass)']").text()
+                            let denominatorEvent = self.parseEvent(raw: rawDenominatorEvent, startTime: time.start, endTime: time.end, repeatKind: .denominator, weekday: weekday)
+                            
+                            if denominatorEvent.isValid {
+                                events.append(denominatorEvent)
+                            }
+                        }
+                        
+                    } catch let error {
+                        
+                        // TODO: Handle error
+                        print(error)
+                    }
+                }
+                
+                completion(ScheduleElement(events: events))
+                
+            } catch let error {
+                
+                // TODO: Handle error
+                print(error)
+                
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
     
     private func getScheduleElement(for group: GroupElement) -> ScheduleElement? {
         
@@ -274,7 +376,16 @@ class ScheduleRegexParser: ScheduleParser {
         }
         
         // Parse title
-        let title = raw.trimmingBoundSpaces()
+        var title = raw.trimmingBoundSpaces()
+        title = title.replacingOccurrences(of: "кк", with: "")
+        
+        if title.lowercased().contains("сам") && title.lowercased().contains("работ") {
+            title = "Самостоятельная работа"
+            kind = .lab
+        } else if title.lowercased().contains("лаб") && title.lowercased().contains("работ") {
+            title = "Лабораторная работа"
+            kind = .lab
+        }
         
         return EventElement(kind: kind, startTime: startTime, endTime: endTime, repeatKind: repeatKind, weekday: weekday, title: title, teacher: teacher, location: location, anotherLocation: anotherLocation)
     }
@@ -394,3 +505,4 @@ extension ScheduleRegexParser {
         }
     }
 }
+

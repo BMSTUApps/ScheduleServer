@@ -72,6 +72,6 @@ struct RawEvent {
 
 protocol ScheduleParser {
     func availableGroups(completion: ([RawGroup]) -> ())
-    func parseSchedule(for group: RawGroup, completion: (RawSchedule?) -> ())
-    func parseSchedules(completion: (RawSchedule?) -> ())
+    func parseSchedule(for group: RawGroup, completion: @escaping (RawSchedule?) -> ())
+    func parseSchedules(completion: (RawSchedule?) -> ())    
 }

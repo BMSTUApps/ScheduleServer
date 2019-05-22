@@ -8,7 +8,6 @@ class ScheduleService {
     private let queue = DispatchQueue(label: "ru.bestK1ng.schedule", qos: .utility)
     
     private let sleepParserDelay: UInt32 = 1 // seconds
-    private let sleepDatabaseDelay: UInt32 = 1 // seconds
 
     func updateSchedules() {
         queue.async {
@@ -34,13 +33,12 @@ class ScheduleService {
         do {
             let environment = try Environment.detect()
             let currentApp = try app(environment)
-            let connection = try currentApp.newConnection(to: .mysql).wait()
 
             for raw in raws {
+                let connection = try currentApp.newConnection(to: .mysql).wait()
                 saveSchedule(raw: raw, on: connection)
+                connection.close()
             }
-
-            connection.close()
             
         } catch let error {
             print("Error with connection to DB: \(error)")

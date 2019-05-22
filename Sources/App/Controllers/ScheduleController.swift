@@ -13,7 +13,7 @@ final class ScheduleController: RouteCollection {
         // REQUEST: api/schedule/
         tokenController.get(use: getSchedule)
         
-        // REQUEST: api/teachers/template
+        // REQUEST: api/schedule/template
         scheduleRoute.get("template", use: getTemplateSchedule)
         
         // REQUEST: api/schedule/edit
@@ -23,9 +23,9 @@ final class ScheduleController: RouteCollection {
         scheduleRoute.get("parse", use: testParse)
     }
     
-    /// Returns a list of all schedules.
+    /// Returns a list of all template schedules.
     func index(_ req: Request) throws -> Future<[Schedule]> {
-        return Schedule.query(on: req).all()
+        return Schedule.query(on: req).filter(\.isTemplate == true).all()
     }
     
     /// Return schedule for user.
