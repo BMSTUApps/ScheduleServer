@@ -42,6 +42,6 @@ final class CreateUserRequest: BaseRequest {
 extension User {
     
     convenience init(_ request: CreateUserRequest, passwordHash: String) {
-        self.init(id: nil, email: request.email, passwordHash: passwordHash, firstName: request.firstName, lastName: request.lastName, middleName: request.middleName, scheduleID: nil)
+        self.init(id: nil, email: request.email, passwordHash: passwordHash, firstName: request.firstName, lastName: request.lastName, middleName: request.middleName, scheduleID: request.templateScheduleID)
     }
 }

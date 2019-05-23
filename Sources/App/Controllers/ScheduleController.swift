@@ -9,6 +9,8 @@ final class ScheduleController: RouteCollection {
         
         let token = User.tokenAuthMiddleware()
         let tokenController = scheduleRoute.grouped(token) 
+    
+        scheduleRoute.get("templates", use: index)
         
         // REQUEST: api/schedule/
         tokenController.get(use: getSchedule)
@@ -24,8 +26,8 @@ final class ScheduleController: RouteCollection {
     }
     
     /// Returns a list of all template schedules.
-    func index(_ req: Request) throws -> Future<[Schedule]> {
-        return Schedule.query(on: req).filter(\.isTemplate == true).all()
+    func index(_ req: Request) throws -> Future<[Group]> {
+        return Group.query(on: req).all()
     }
     
     /// Return schedule for user.
