@@ -42,7 +42,7 @@ final class UserController: RouteCollection {
     }
     
     /// Creates a new user.
-    func signUp(_ req: Request) throws -> Future<UserResponse> {
+    func signUp(_ req: Request) throws -> EventLoopFuture<EventLoopFuture<EventLoopFuture<UserResponse>>> {
         
         // Decode request content
         let request = try req.content.decode(CreateUserRequest.self)
@@ -57,38 +57,51 @@ final class UserController: RouteCollection {
             return Schedule.find(scheduleTemplateID, on: req).unwrap(or: Abort(.notFound, reason: "Template schedule not found."))
         }
         
-        // Create schedule from template
-        _ = templateSchedule.flatMap { (template) -> EventLoopFuture<Schedule> in
+        // Create schedule from template and usert
+        let future = templateSchedule.map { template -> EventLoopFuture<EventLoopFuture<UserResponse>> in
             
             let schedule = Schedule(id: nil, isTemplate: false)
-            let scheduleID = try schedule.requireID()
-            
-            _ = try template.events.query(on: req).all().map(to: Int.self, { (events) -> Int in
+    
+            // Save schedule
+            let future = schedule.create(on: req).map({ schedule -> EventLoopFuture<(User, [EventLoopFuture<Event>])> in
+                let scheduleID = try schedule.requireID()
+
+                let futureEvents = try template.events.query(on: req).all().map({ events -> [EventLoopFuture<Event>] in
+                    
+                    var futures: [EventLoopFuture<Event>] = []
+                    for event in events {
+                        
+                        let newEvent = Event(id: nil, title: event.title, kind: event.kind, location: event.location, date: event.date, repeatIn: event.repeatIn, endDate: event.endDate, startTime: event.startTime, endTime: event.endTime, teacherID: event.teacherID, scheduleID: scheduleID)
+                        
+                        futures.append(newEvent.create(on: req))
+                    }
+                    
+                    return futures
+                })
                 
-                for event in events {
+                let futureUser = request.flatMap { user -> Future<User> in
                     
-                    let newEvent = Event(id: nil, title: event.title, kind: event.kind, location: event.location, date: event.date, repeatIn: event.repeatIn, endDate: event.endDate, startTime: event.startTime, endTime: event.endTime, teacherID: event.teacherID, scheduleID: scheduleID)
+                    // Hash user's password using BCrypt
+                    let hash = try BCrypt.hash(user.password)
                     
-                    _ = newEvent.save(on: req)
+                    // Save new user
+                    let newUser = User(user, passwordHash: hash)
+                    newUser.scheduleID = scheduleID
+                    
+                    return newUser.create(on: req)
                 }
                 
-                return 0
+                return futureUser.and(futureEvents)
             })
-            
-            return schedule.save(on: req)
+
+            return future.map({ future -> EventLoopFuture<UserResponse> in
+                return future.map({ (user, _) -> UserResponse in
+                    return UserResponse(user)
+                })
+            })
         }
         
-        return request.flatMap { user -> Future<User> in
-            
-            // Hash user's password using BCrypt
-            let hash = try BCrypt.hash(user.password)
-            
-            // Save new user
-            return User(user, passwordHash: hash).save(on: req)
-            
-        }.map({ user -> UserResponse in
-            return UserResponse(user)
-        })
+        return future
     }
     
     // TODO: Get student for id.
