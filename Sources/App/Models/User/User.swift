@@ -17,8 +17,9 @@ final class User: MySQLModel {
     var photo: URL?
 
     var scheduleID: Schedule.ID?
+    var templateScheduleID: Schedule.ID?
     
-    init(id: Int? = nil, email: String = "", passwordHash: String = "", firstName: String, lastName: String, middleName: String?, scheduleID: Schedule.ID? = nil) {
+    init(id: Int? = nil, email: String = "", passwordHash: String = "", firstName: String, lastName: String, middleName: String?, scheduleID: Schedule.ID? = nil, templateScheduleID: Schedule.ID? = nil) {
         self.id = id
         
         self.email = email
@@ -29,6 +30,7 @@ final class User: MySQLModel {
         self.middleName = middleName ?? ""
         
         self.scheduleID = scheduleID
+        self.templateScheduleID = templateScheduleID
     }
 }
 
@@ -51,6 +53,7 @@ extension User {
         case middleName = "middle_name"
         case photo
         case scheduleID = "schedule_id"
+        case templateScheduleID = "template_schedule_id"
     }
 }
 

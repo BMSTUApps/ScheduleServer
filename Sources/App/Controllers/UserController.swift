@@ -11,23 +11,18 @@ final class UserController: RouteCollection {
         let simpleAuth = User.basicAuthMiddleware(using: BCryptDigest())
         let authController = userRoute.grouped(simpleAuth)
         
-        // REQUEST: api/user/
-        // FIXME: Remove user's list
-        userRoute.get("users", use: index)
-        
         // REQUEST: api/user/sign_up
         userRoute.post("sign_up", use: signUp)
         
         // REQUEST: api/user/login
         authController.post("login", use: login)
+        
+        // REQUEST: api/user/update
+//        authController.post("update", use: update)
     }
     
-    /// Returns a list of all users.
-    func index(_ req: Request) throws -> Future<[User]> {
-        return User.query(on: req).all()
-    }
-    
-     func login(_ req: Request) throws -> Future<UserTokenResponse> {
+    /// Create a new token for user
+    func login(_ req: Request) throws -> Future<UserTokenResponse> {
         
         // Get user auth'd by basic auth middleware
         let user = try req.requireAuthenticated(User.self)
@@ -41,7 +36,7 @@ final class UserController: RouteCollection {
         })
     }
     
-    /// Creates a new user.
+    /// Create a new user
     func signUp(_ req: Request) throws -> EventLoopFuture<EventLoopFuture<EventLoopFuture<UserResponse>>> {
         
         // Decode request content
@@ -59,13 +54,13 @@ final class UserController: RouteCollection {
         
         // Create schedule from template and usert
         let future = templateSchedule.map { template -> EventLoopFuture<EventLoopFuture<UserResponse>> in
-            
             let schedule = Schedule(id: nil, isTemplate: false)
     
             // Save schedule
             let future = schedule.create(on: req).map({ schedule -> EventLoopFuture<(User, [EventLoopFuture<Event>])> in
                 let scheduleID = try schedule.requireID()
 
+                // Copy events from templates
                 let futureEvents = try template.events.query(on: req).all().map({ events -> [EventLoopFuture<Event>] in
                     
                     var futures: [EventLoopFuture<Event>] = []
@@ -79,6 +74,7 @@ final class UserController: RouteCollection {
                     return futures
                 })
                 
+                // Create new user
                 let futureUser = request.flatMap { user -> Future<User> in
                     
                     // Hash user's password using BCrypt
@@ -87,6 +83,7 @@ final class UserController: RouteCollection {
                     // Save new user
                     let newUser = User(user, passwordHash: hash)
                     newUser.scheduleID = scheduleID
+                    newUser.templateScheduleID = try template.requireID()
                     
                     return newUser.create(on: req)
                 }
@@ -104,7 +101,12 @@ final class UserController: RouteCollection {
         return future
     }
     
-    // TODO: Get student for id.
-    // TODO: Update student for id.
-    // TODO: Upload student's photo for id.
+    /// Update user
+//    func update(_ req: Request) throws -> Future<UserResponse> {
+//
+//        // Get user auth'd by basic auth middleware
+//        let user = try req.requireAuthenticated(User.self)
+//
+//        // Update user
+//    }
 }
