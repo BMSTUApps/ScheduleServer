@@ -40,7 +40,7 @@ final class UserController: RouteCollection {
     func signUp(_ req: Request) throws -> EventLoopFuture<EventLoopFuture<EventLoopFuture<UserResponse>>> {
         
         // Decode request content
-        let request = try req.content.decode(CreateUserRequest.self)
+        let request = try req.content.decode(SignUpRequest.self)
         
         // Get schedule template ID
         let templateID = request.map(to: Int.self) { (createUserRequest) -> Int in

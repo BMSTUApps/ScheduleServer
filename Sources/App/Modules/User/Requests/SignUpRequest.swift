@@ -1,12 +1,12 @@
 import Vapor
 
-/// Data required to create a user.
-final class CreateUserRequest: BaseRequest {
+/// Data required to create a user
+final class SignUpRequest: BaseRequest {
     
-    /// User's email address.
+    /// User's email address
     var email: String
     
-    /// User's desired password.
+    /// User's desired password
     var password: String
     
     /// User's name.
@@ -14,7 +14,7 @@ final class CreateUserRequest: BaseRequest {
     var lastName: String
     var middleName: String?
     
-    /// User's schedule template.
+    /// User's schedule template
     var templateScheduleID: Int
     
     enum CodingKeys: String, CodingKey {
@@ -41,7 +41,7 @@ final class CreateUserRequest: BaseRequest {
 
 extension User {
     
-    convenience init(_ request: CreateUserRequest, passwordHash: String) {
+    convenience init(_ request: SignUpRequest, passwordHash: String) {
         self.init(id: nil, email: request.email, passwordHash: passwordHash, firstName: request.firstName, lastName: request.lastName, middleName: request.middleName, scheduleID: request.templateScheduleID)
     }
 }

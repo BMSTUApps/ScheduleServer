@@ -10,6 +10,7 @@ final class ScheduleController: RouteCollection {
         let token = User.tokenAuthMiddleware()
         let tokenController = scheduleRoute.grouped(token) 
     
+        // REQUEST: api/schedule/templates
         scheduleRoute.get("templates", use: index)
         
         // REQUEST: api/schedule/
@@ -19,8 +20,9 @@ final class ScheduleController: RouteCollection {
         scheduleRoute.get("template", use: getTemplateSchedule)
         
         // REQUEST: api/schedule/edit
-        // TODO: api/schedule/edit
+        tokenController.post("edit", use: editEvent)
         
+        // FIXME: Remove test code
         // REQUEST: api/schedule/parse
         scheduleRoute.get("parse", use: testParse)
     }
@@ -130,6 +132,17 @@ final class ScheduleController: RouteCollection {
         
         return try req.content.decode(Schedule.self).flatMap({ schedule in
             return schedule.update(on: req)
+        })
+    }
+    
+    // Updates current event
+    func editEvent(_ req: Request) throws -> Future<Event> {
+        
+        let request = try req.content.decode(UpdateEventRequest.self)
+        return request.flatMap({ request -> EventLoopFuture<Event> in
+            let event = Event.find(request.id, on: req).unwrap(or: Abort(.notFound, reason: "Event not found."))
+
+            return event
         })
     }
     
